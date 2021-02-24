@@ -1,4 +1,4 @@
-# bali_documents
+# bali
 Librería enfocada a la validación de identificadores personales y fiscales de los clientes en diferentes documentos por país
 
 ## Installation
