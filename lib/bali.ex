@@ -1,6 +1,6 @@
-defmodule BaliDocuments do
+defmodule Bali do
   @moduledoc """
-  Documentation for BaliDocuments.
+  Documentation for Bali.
   """
 
   @doc """
@@ -8,7 +8,7 @@ defmodule BaliDocuments do
 
   ## Examples
 
-      iex> BaliDocuments.hello()
+      iex> Bali.hello()
       :world
 
   """
