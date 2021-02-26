@@ -2,7 +2,33 @@ defmodule BaliTest do
   use ExUnit.Case
   doctest Bali
 
-  test "greets the world" do
-    assert Bali.hello() == :world
+  test "Puedo validar el identificador NIF(Numero de identificacion fiscal) de Portugal exitosamente" do
+    value = "999999999"
+    assert {:ok, value} == Bali.validate(:pt, :nif, value)
+  end
+
+  test "Puedo validar el identificador NIF(Numero de identificacion fiscal) de Portugal exitosamente aunque venga con espacios" do
+    value = "999 999 999"
+    assert {:ok, "999999999"} == Bali.validate(:pt, :nif, value)
+  end
+
+  test "Puedo validar que el identificador NIF(Numero de identificacion fiscal) de Portugal no es correcto" do
+    value = "123454"
+    assert {:error, "NIF inválido"} == Bali.validate(:pt, :nif, value)
+  end
+
+  test "Puedo validar mandar un mensaje de error, si el país no es soportado" do
+    assert {:error, "País no soportado para validar documento: dni"} ==
+             Bali.validate(:uk, :dni, "12345678A")
+  end
+
+  test "Puedo validar mandar un mensaje de error, cuando se envia solo el parámetro de país" do
+    assert {:error, "No es posible realizar la validación del identificador"} ==
+             Bali.validate(:pt)
+  end
+
+  test "Puedo validar mandar un mensaje de error, cuando se envia el parámetro de país y nombre de identificador" do
+    assert {:error, "No es posible realizar la validación del identificador"} ==
+             Bali.validate(:pt, :nif)
   end
 end
