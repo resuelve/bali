@@ -4,16 +4,6 @@ defmodule Bali do
   y fiscales de Portugal, Italia, España, Colombia y México
   """
 
-  @spec validate(any) :: {:error, String.t()}
-  def validate(_) do
-    {:error, "No es posible realizar la validación del identificador"}
-  end
-
-  @spec validate(any, any) :: {:error, String.t()}
-  def validate(_, _) do
-    {:error, "No es posible realizar la validación del identificador"}
-  end
-
   @doc """
    Valida identificadores de portugal de acuerdo al tipo 
    de documento
@@ -21,7 +11,7 @@ defmodule Bali do
   @spec validate(atom, atom, String.t()) :: {:ok, String.t()} | {:error, String.t()}
   def validate(:pt, document_type, value) do
     clean_value = clean_string(value)
-     ValidatorPt.valid(document_type, clean_value)
+    ValidatorPt.valid(document_type, clean_value)
   end
 
   @doc """
@@ -33,7 +23,7 @@ defmodule Bali do
 
   # Elimina los caracteres en blanco de la cadena de entrada
   @spec clean_string(String.t()) :: String.t()
-  defp clean_string(value) do     
-    String.replace(value, " ", "")    
-  end 
+  defp clean_string(value) do
+    String.replace(value, " ", "")
+  end
 end

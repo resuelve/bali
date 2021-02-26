@@ -12,7 +12,7 @@ defmodule ValidatorPtTest do
   end
 
   test "Puedo validar si me mandan el parámetro de identificación y valor incorrectos se envia un mensaje de error" do
-    assert {:error, "No es posible validar el documento de Portugal"} ==
+    assert {:error, "Tipo de documento inválido"} ==
              ValidatorPt.valid(:uk, "12345678A")
   end
 end

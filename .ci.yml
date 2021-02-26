@@ -1,0 +1,28 @@
+kind: pipeline
+name: default
+
+steps:
+- name: clone
+  pull: if-not-exists
+  image: plugins/git
+  when:
+    event:
+    - pull_request
+    - push
+    status:
+    - success
+
+- name: test
+  pull: if-not-exists
+  image: elixir:1.11-alpine
+  commands:
+  - mix local.hex --force && mix local.rebar --force
+  - mix deps.get
+  - mix format --check-formatted
+  - mix xref unreachable --abort-if-any
+  - mix test --cover
+  when:
+    event:
+    - pull_request
+    status:
+    - success

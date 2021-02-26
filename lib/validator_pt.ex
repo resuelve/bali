@@ -22,6 +22,6 @@ defmodule ValidatorPt do
   """
   @spec valid(any, any) :: {:error, String.t()}
   def valid(_, _) do
-    {:error, "No es posible validar el documento de Portugal"}
+    {:error, "Tipo de documento inválido"}
   end
 end

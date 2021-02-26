@@ -21,14 +21,4 @@ defmodule BaliTest do
     assert {:error, "País no soportado para validar documento: dni"} ==
              Bali.validate(:uk, :dni, "12345678A")
   end
-
-  test "Puedo validar mandar un mensaje de error, cuando se envia solo el parámetro de país" do
-    assert {:error, "No es posible realizar la validación del identificador"} ==
-             Bali.validate(:pt)
-  end
-
-  test "Puedo validar mandar un mensaje de error, cuando se envia el parámetro de país y nombre de identificador" do
-    assert {:error, "No es posible realizar la validación del identificador"} ==
-             Bali.validate(:pt, :nif)
-  end
 end
