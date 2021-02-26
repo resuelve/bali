@@ -6,8 +6,7 @@ steps:
   pull: if-not-exists
   image: elixir:1.11-alpine
   commands:
-  - apk add --update bash openssl git
-  - cd src
+  - apk add --update bash openssl git  
   - mix local.hex --force && mix local.rebar --force
   - mix deps.get
   - mix format --check-formatted
