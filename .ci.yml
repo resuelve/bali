@@ -2,16 +2,6 @@ kind: pipeline
 name: default
 
 steps:
-- name: clone
-  pull: if-not-exists
-  image: plugins/git
-  when:
-    event:
-    - pull_request
-    - push
-    status:
-    - success
-
 - name: test
   pull: if-not-exists
   image: elixir:1.11-alpine
