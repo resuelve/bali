@@ -1,4 +1,4 @@
-defmodule ValidatorPt do
+defmodule Validators.Portugal do
   @moduledoc """
   Validador para los identificadores personales y fiscales de Portugal
   """

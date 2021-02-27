@@ -4,6 +4,8 @@ defmodule Bali do
   y fiscales de Portugal, Italia, España, Colombia y México
   """
 
+  alias Validators.Portugal
+
   @doc """
    Valida identificadores de portugal de acuerdo al tipo 
    de documento
@@ -11,14 +13,15 @@ defmodule Bali do
   @spec validate(atom, atom, String.t()) :: {:ok, String.t()} | {:error, String.t()}
   def validate(:pt, document_type, value) do
     clean_value = clean_string(value)
-    ValidatorPt.valid(document_type, clean_value)
+    Portugal.valid(document_type, clean_value)
   end
 
   @doc """
    Escenario cuando el país no es soportado 
   """
-  def validate(_, document_type, _value) do
-    {:error, "País no soportado para validar documento: #{document_type}"}
+  @spec validate(atom, atom, String.t()) :: {:error, String.t()}
+  def validate(country, _document_type, _value) do
+    {:error, "País #{country} no soportado"}
   end
 
   # Elimina los caracteres en blanco de la cadena de entrada

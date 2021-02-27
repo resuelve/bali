@@ -18,7 +18,7 @@ defmodule BaliTest do
   end
 
   test "Puedo validar mandar un mensaje de error, si el país no es soportado" do
-    assert {:error, "País no soportado para validar documento: dni"} ==
-             Bali.validate(:uk, :dni, "12345678A")
+    assert {:error, "País sk no soportado"} ==
+             Bali.validate(:sk, :dni, "12345678A")
   end
 end
