@@ -5,15 +5,26 @@ defmodule Bali do
   """
 
   alias Validators.Portugal
+  alias Validators.Spain
 
   @doc """
-   Valida identificadores de portugal de acuerdo al tipo 
+   Valida identificadores de Portugal de acuerdo al tipo 
    de documento
   """
   @spec validate(atom, atom, String.t()) :: {:ok, String.t()} | {:error, String.t()}
   def validate(:pt, document_type, value) do
     clean_value = clean_string(value)
     Portugal.valid(document_type, clean_value)
+  end
+
+  @doc """
+   Valida identificadores de España de acuerdo al tipo 
+   de documento
+  """
+  @spec validate(atom, atom, String.t()) :: {:ok, String.t()} | {:error, String.t()}
+  def validate(:es, document_type, value) do
+    clean_value = clean_string(value)
+    Spain.valid(document_type, clean_value)
   end
 
   @doc """
