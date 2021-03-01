@@ -8,8 +8,7 @@ defmodule Bali do
   alias Validators.Spain
 
   @doc """
-   Valida identificadores de Portugal de acuerdo al tipo 
-   de documento
+  Valida el documento según el país y tipo
   """
   @spec validate(atom, atom, String.t()) :: {:ok, String.t()} | {:error, String.t()}
   def validate(:pt, document_type, value) do
@@ -17,20 +16,11 @@ defmodule Bali do
     Portugal.valid(document_type, clean_value)
   end
 
-  @doc """
-   Valida identificadores de España de acuerdo al tipo 
-   de documento
-  """
-  @spec validate(atom, atom, String.t()) :: {:ok, String.t()} | {:error, String.t()}
   def validate(:es, document_type, value) do
     clean_value = clean_string(value)
     Spain.valid(document_type, clean_value)
   end
 
-  @doc """
-   Escenario cuando el país no es soportado 
-  """
-  @spec validate(atom, atom, String.t()) :: {:error, String.t()}
   def validate(country, _document_type, _value) do
     {:error, "País #{country} no soportado"}
   end
