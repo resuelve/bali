@@ -42,6 +42,36 @@ defmodule BaliTest do
     assert {:error, "NIE inválido"} == Bali.validate(:es, :nie, value)
   end
 
+  test "Puedo validar el identificador CC(Cédula de Ciudadania) de Colombia exitosamente" do
+    value = "1234567891"
+    assert {:ok, value} == Bali.validate(:co, :cc, value)
+  end
+
+  test "Puedo validar que el identificador CC(Cédula de Ciudadania) de Colombia no es correcto" do
+    value = "12345678912"
+    assert {:error, "CC inválida"} == Bali.validate(:co, :cc, value)
+  end
+
+  test "Puedo validar el identificador CE(Cédula de Extranjería) de Colombia exitosamente" do
+    value = "123456"
+    assert {:ok, value} == Bali.validate(:co, :ce, value)
+  end
+
+  test "Puedo validar que el identificador CE(Cédula de Extranjería) de Colombia no es correcto" do
+    value = "1234567"
+    assert {:error, "CE inválida"} == Bali.validate(:co, :ce, value)
+  end
+
+  test "Puedo validar el identificador NIT(Número de Identificación Tributario) de Colombia exitosamente" do
+    value = "123456-1"
+    assert {:ok, value} == Bali.validate(:co, :nit, value)
+  end
+
+  test "Puedo verificar que el identificador NIT(Número de Identificación Tributario) de Colombia no es correcto" do
+    value = "123456-12"
+    assert {:error, "NIT inválido"} == Bali.validate(:co, :nit, value)
+  end
+
   test "Puedo validar mandar un mensaje de error, si el país no es soportado" do
     assert {:error, "País sk no soportado"} ==
              Bali.validate(:sk, :dni, "12345678A")
