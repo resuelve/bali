@@ -10,30 +10,33 @@ defmodule Bali do
   alias Validators.Mexico
 
   @doc """
-  Valida el documento según el país y tipo
+  Limpia la cadena previo a realizar la validación del documento
+  según el país y tipo
   """
   @spec validate(atom, atom, String.t()) :: {:ok, String.t()} | {:error, String.t()}
-  def validate(:pt, document_type, value) do
+  def validate(country, document_type, value) do
     clean_value = clean_string(value)
-    Portugal.valid(document_type, clean_value)
+    do_validate(country, document_type, clean_value)
   end
 
-  def validate(:es, document_type, value) do
-    clean_value = clean_string(value)
-    Spain.valid(document_type, clean_value)
+  @spec do_validate(atom, atom, String.t()) :: {:ok, String.t()} | {:error, String.t()}
+  defp do_validate(:pt, document_type, value) do
+    Portugal.valid(document_type, value)
   end
 
-  def validate(:co, document_type, value) do
-    clean_value = clean_string(value)
-    Colombia.valid(document_type, clean_value)
+  defp do_validate(:es, document_type, value) do
+    Spain.valid(document_type, value)
   end
 
-  def validate(:mx, document_type, value) do
-    clean_value = clean_string(value)
-    Mexico.valid(document_type, clean_value)
+  defp do_validate(:co, document_type, value) do
+    Colombia.valid(document_type, value)
   end
 
-  def validate(country, _document_type, _value) do
+  defp do_validate(:mx, document_type, value) do
+    Mexico.valid(document_type, value)
+  end
+
+  defp do_validate(country, _document_type, _value) do
     {:error, "País #{country} no soportado"}
   end
 
