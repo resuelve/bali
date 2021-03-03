@@ -7,6 +7,7 @@ defmodule Bali do
   alias Validators.Portugal
   alias Validators.Spain
   alias Validators.Colombia
+  alias Validators.Mexico
 
   @doc """
   Valida el documento según el país y tipo
@@ -25,6 +26,11 @@ defmodule Bali do
   def validate(:co, document_type, value) do
     clean_value = clean_string(value)
     Colombia.valid(document_type, clean_value)
+  end
+
+  def validate(:mx, document_type, value) do
+    clean_value = clean_string(value)
+    Mexico.valid(document_type, clean_value)
   end
 
   def validate(country, _document_type, _value) do

@@ -72,6 +72,26 @@ defmodule BaliTest do
     assert {:error, "NIT inválido"} == Bali.validate(:co, :nit, value)
   end
 
+  test "Puedo validar el identificador RFC(Registro Federal de Contribuyentes) de México exitosamente" do
+    value = "AAFI7906296J1"
+    assert {:ok, value} == Bali.validate(:mx, :rfc, value)
+  end
+
+  test "Puedo verificar que el identificador RFC(Registro Federal de Contribuyentes) de México no es correcto" do
+    value = "OIBD890101MQB"
+    assert {:error, "RFC inválido"} == Bali.validate(:mx, :rfc, value)
+  end
+
+  test "Puedo validar el identificador CURP(Clave Única de Registro de Población) de México exitosamente" do
+    value = "ROCE000131HNLDNDA0"
+    assert {:ok, value} == Bali.validate(:mx, :curp, value)
+  end
+
+  test "Puedo verificar que el identificador CURP(Clave Única de Registro de Población) de México no es correcto" do
+    value = "BADD110313HCMLNS0Q"
+    assert {:error, "CURP inválido"} == Bali.validate(:mx, :curp, value)
+  end
+
   test "Puedo validar mandar un mensaje de error, si el país no es soportado" do
     assert {:error, "País sk no soportado"} ==
              Bali.validate(:sk, :dni, "12345678A")
