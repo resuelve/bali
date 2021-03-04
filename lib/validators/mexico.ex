@@ -4,7 +4,8 @@ defmodule Validators.Mexico do
   """
 
   @doc """
-  Valida el formato del CURP(Clave Única de Registro de Población)
+  Valida el formato del CURP(Clave Única de Registro de Población) ó 
+  el RFC(Registro Federal de Contribuyentes)
   """
   @spec valid(atom, String.t()) :: {:ok, String.t()} | {:error, String.t()}
   def valid(:curp, value) do
@@ -15,10 +16,6 @@ defmodule Validators.Mexico do
     end
   end
 
-  @doc """
-  Valida el formato del RFC(Registro Federal de Contribuyentes)
-  """
-  @spec valid(atom, String.t()) :: {:ok, String.t()} | {:error, String.t()}
   def valid(:rfc, value) do
     if Regex.match?(rfc(), value) do
       {:ok, value}
@@ -27,9 +24,6 @@ defmodule Validators.Mexico do
     end
   end
 
-  @doc """
-   Validación cuando el nombre del identificador y el valor son incorrectos
-  """
   def valid(_, _) do
     {:error, "Tipo de documento inválido"}
   end

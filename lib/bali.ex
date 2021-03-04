@@ -11,8 +11,8 @@ defmodule Bali do
   alias Validators.Italy
 
   @doc """
-  Limpia la cadena previo a realizar la validación del documento
-  según el país y tipo
+  Valida el identificador personal o fiscal segun el país(mx,co,es,pt,it) y 
+  tipo(rfc,curp,cc,ce,nit,dni,nif) 
   """
   @spec validate(atom, atom, String.t()) :: {:ok, String.t()} | {:error, String.t()}
   def validate(country, document_type, value) do
