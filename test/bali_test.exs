@@ -92,6 +92,16 @@ defmodule BaliTest do
     assert {:error, "CURP inválido"} == Bali.validate(:mx, :curp, value)
   end
 
+  test "Puedo validar el identificador NIF(Numero de identificacion fiscal) de Italia exitosamente" do
+    value = "VRDGPP13R10B293P"
+    assert {:ok, value} == Bali.validate(:it, :nif, value)
+  end
+
+  test "Puedo verificar que el identificador NIF(Numero de identificacion fiscal) de Italia no es correcto" do
+    value = "VRDGPP13R10B29BP"
+    assert {:error, "NIF inválido"} == Bali.validate(:it, :nif, value)
+  end
+
   test "Puedo validar mandar un mensaje de error, si el país no es soportado" do
     assert {:error, "País sk no soportado"} ==
              Bali.validate(:sk, :dni, "12345678A")
