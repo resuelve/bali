@@ -4,7 +4,7 @@ Librería enfocada a la validación de identificadores personales y fiscales de 
 ## Installation
 
 If [available in Hex](https://hex.pm/docs/publish), the package can be installed
-by adding `bali_documents` to your list of dependencies in `mix.exs`:
+by adding `bali` to your list of dependencies in `mix.exs`:
 
 ```elixir
 def deps do
@@ -16,5 +16,5 @@ end
 
 Documentation can be generated with [ExDoc](https://github.com/elixir-lang/ex_doc)
 and published on [HexDocs](https://hexdocs.pm). Once published, the docs can
-be found at [https://hexdocs.pm/bali_documents](https://hexdocs.pm/bali_documents).
+be found at [https://hexdocs.pm/bali](https://hexdocs.pm/bali).
 
