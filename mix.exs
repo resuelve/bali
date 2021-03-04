@@ -5,9 +5,11 @@ defmodule Bali.MixProject do
     [
       app: :bali,
       version: "0.1.0",
+      description: "Valida identificadores personales y fiscales para MX, CO, ES, PT, IT",
       elixir: "~> 1.9",
       start_permanent: Mix.env() == :prod,
-      deps: deps()
+      deps: deps(),
+      package: package()
     ]
   end
 
@@ -21,8 +23,17 @@ defmodule Bali.MixProject do
   # Run "mix help deps" to learn about dependencies.
   defp deps do
     [
-      # {:dep_from_hexpm, "~> 0.3.0"},
-      # {:dep_from_git, git: "https://github.com/elixir-lang/my_dep.git", tag: "0.1.0"}
+      {:ex_doc, "~> 0.22.2", only: :dev}
+    ]
+  end
+
+  defp package do
+    [
+      organization: "resuelve",
+      files: ["lib", "mix.exs", "README.md"],
+      maintainers: ["Iván Álvarez"],
+      licenses: ["Apache-2.0"],
+      links: %{"GitHub" => "https://github.com/resuelve/bali"}
     ]
   end
 end
