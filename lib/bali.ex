@@ -8,6 +8,7 @@ defmodule Bali do
   alias Validators.Spain
   alias Validators.Colombia
   alias Validators.Mexico
+  alias Validators.Italy
 
   @doc """
   Limpia la cadena previo a realizar la validación del documento
@@ -34,6 +35,10 @@ defmodule Bali do
 
   defp do_validate(:mx, document_type, value) do
     Mexico.valid(document_type, value)
+  end
+
+  defp do_validate(:it, document_type, value) do
+    Italy.valid(document_type, value)
   end
 
   defp do_validate(country, _document_type, _value) do
