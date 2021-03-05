@@ -1,5 +1,10 @@
 # bali
-Librería enfocada a la validación de identificadores personales y fiscales de los clientes en diferentes documentos por país
+Library focused on the validation of personal and tax identifiers of clients in different documents by country:
+- Mexico(RFC, CURP)
+- Colombia(CC, CE, NIT)
+- Spain(DNI, NIE)
+- Portugal(NIF)
+- Italy(NIF)
 
 ## Installation
 
