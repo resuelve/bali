@@ -1,10 +1,23 @@
 defmodule Validators.Italy do
   @moduledoc """
-  Validador para los identificadores personales y fiscales de Italia
+  Validador para los identificadores personales y fiscales de Italia.
+  Soporta el NIF (Número de identificación fiscal)
   """
 
   @doc """
-    Valida el formato del NIF(Número de identificación fiscal)
+  Valida el formato del NIF
+    
+  ## Ejemplos:
+
+  ```elixir
+
+    iex> Validators.Italy.validate(:nif, "VRDGPP13R10B293P")
+    {:ok, "VRDGPP13R10B293P"}
+
+    iex> Validators.Italy.validate(:nif, "VRDGPP13R10B29BP")
+    {:error, "NIF inválido"}
+
+  ```    
   """
   @spec valid(atom, String.t()) :: {:ok, String.t()} | {:error, String.t()}
   def valid(:nif, value) do
@@ -19,7 +32,7 @@ defmodule Validators.Italy do
     {:error, "Tipo de documento inválido"}
   end
 
-  # Expresión regular para validar el NIF(Número de identificación fiscal)
+  # Expresión regular para validar el NIF
   # Su estructura es la siguiente:
   #   - Se utilizan las tres primeras consonantes del apellido
   #   - Se utilizan las tres primeras consonantes del nombre

@@ -1,11 +1,30 @@
 defmodule Validators.Spain do
   @moduledoc """
-  Validador para los identificadores personales y fiscales de España
+  Validador para los identificadores personales y fiscales de España.
+  Soporta el DNI (Documento Nacional de Identidad) y el 
+  NIE (Número de identificación al Extranjero)
   """
 
   @doc """
-  Valida el formato del DNI(Documento Nacional de Identidad) ó
-  el NIE(Número de identificación al Extranjero)
+  Valida el formato del DNI ó el NIE 
+
+  ## Ejemplos:
+
+  ```elixir
+
+    iex> Validators.Spain.validate(:dni, "46324571H")
+    {:ok, "46324571H"}
+
+    iex> Validators.Spain.validate(:dni, "46324571I")
+    {:error, "DNI inválido"}
+
+    iex> Validators.Spain.validate(:nie, "Z1234567R")
+    {:ok, "Z1234567R"}
+
+    iex> Validators.Spain.validate(:nie, "Z1234567I")
+    {:error, "NIE inválido"}
+
+  ```     
   """
   @spec valid(atom, String.t()) :: {:ok, String.t()} | {:error, String.t()}
   def valid(:dni, value) do
@@ -28,7 +47,7 @@ defmodule Validators.Spain do
     {:error, "Tipo de documento inválido"}
   end
 
-  # Expresión regular para validar un DNI(Documento Nacional de Identidad)
+  # Expresión regular para validar un DNI
   # Su estructura es un bloque de 8 dígitos y un carácter de control
   # ejemplo '46324571H'
   @spec dni() :: Regex.t()
@@ -36,7 +55,7 @@ defmodule Validators.Spain do
     ~r/^\d{8}[TRWAGMYFPDXBNJZSQVHLCKE]$/
   end
 
-  # Expresión regular para validar el NIE(Número de identificación al Extranjero)
+  # Expresión regular para validar el NIE
   # Su estructura es la letra X,Y o Z, bloque de 7 dígitos y un carácter de control
   # ejemplo 'Z1234567R'
   @spec nie() :: Regex.t()

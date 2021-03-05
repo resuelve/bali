@@ -1,11 +1,30 @@
 defmodule Validators.Mexico do
   @moduledoc """
-  Validador para los identificadores personales y fiscales de Mexico
+  Validador para los identificadores personales y fiscales de Mexico.
+  Soporta el RFC (Registro Federal de Contribuyentes) y el 
+  CURP (Clave Única de Registro de Población)
   """
 
   @doc """
-  Valida el formato del CURP(Clave Única de Registro de Población) ó 
-  el RFC(Registro Federal de Contribuyentes)
+  Valida el formato del CURP ó el RFC 
+
+  ## Ejemplos:
+
+  ```elixir
+
+    iex> Validators.Mexico.validate(:curp, "ROCE000131HNLDNDA0")
+    {:ok, "ROCE000131HNLDNDA0"}
+
+    iex> Validators.Mexico.validate(:curp, "BADD110313HCMLNS0Q")
+    {:error, "CURP inválido"}
+
+    iex> Validators.Mexico.validate(:rfc, "AAFI7906296J1")
+    {:ok, "AAFI7906296J1"}
+
+    iex> Validators.Mexico.validate(:rfc, "OIBD890101MQB")
+    {:error, "RFC inválido"}
+
+  ```
   """
   @spec valid(atom, String.t()) :: {:ok, String.t()} | {:error, String.t()}
   def valid(:curp, value) do
