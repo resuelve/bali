@@ -1,5 +1,5 @@
 # bali
-Library focused on the validation of personal and tax identifiers of clients in different documents by country:
+Library focused on the validation of personal and tax identifiers by country:
 - Mexico(RFC, CURP)
 - Colombia(CC, CE, NIT)
 - Spain(DNI, NIE)
