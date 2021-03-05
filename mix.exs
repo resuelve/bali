@@ -29,7 +29,6 @@ defmodule Bali.MixProject do
 
   defp package do
     [
-      organization: "resuelve",
       files: ["lib", "mix.exs", "README.md"],
       maintainers: ["Iván Álvarez"],
       licenses: ["Apache-2.0"],
