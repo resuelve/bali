@@ -1,10 +1,30 @@
 defmodule Validators.Mexico do
   @moduledoc """
-  Validador para los identificadores personales y fiscales de Mexico
+  Validador para los identificadores personales y fiscales de Mexico.
+  Soporta el RFC (Registro Federal de Contribuyentes) y el 
+  CURP (Clave Única de Registro de Población)
   """
 
   @doc """
-  Valida el formato del CURP(Clave Única de Registro de Población)
+  Valida el formato del CURP ó el RFC 
+
+  ## Ejemplos:
+
+  ```elixir
+
+    iex> Validators.Mexico.validate(:curp, "ROCE000131HNLDNDA0")
+    {:ok, "ROCE000131HNLDNDA0"}
+
+    iex> Validators.Mexico.validate(:curp, "BADD110313HCMLNS0Q")
+    {:error, "CURP inválido"}
+
+    iex> Validators.Mexico.validate(:rfc, "AAFI7906296J1")
+    {:ok, "AAFI7906296J1"}
+
+    iex> Validators.Mexico.validate(:rfc, "OIBD890101MQB")
+    {:error, "RFC inválido"}
+
+  ```
   """
   @spec valid(atom, String.t()) :: {:ok, String.t()} | {:error, String.t()}
   def valid(:curp, value) do
@@ -15,10 +35,6 @@ defmodule Validators.Mexico do
     end
   end
 
-  @doc """
-  Valida el formato del RFC(Registro Federal de Contribuyentes)
-  """
-  @spec valid(atom, String.t()) :: {:ok, String.t()} | {:error, String.t()}
   def valid(:rfc, value) do
     if Regex.match?(rfc(), value) do
       {:ok, value}
@@ -27,9 +43,6 @@ defmodule Validators.Mexico do
     end
   end
 
-  @doc """
-   Validación cuando el nombre del identificador y el valor son incorrectos
-  """
   def valid(_, _) do
     {:error, "Tipo de documento inválido"}
   end
