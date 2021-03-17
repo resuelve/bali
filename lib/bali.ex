@@ -114,4 +114,11 @@ defmodule Bali do
   defp clean_string(value) do
     String.replace(value, " ", "")
   end
+
+  @doc """
+  Obtiene la lista de tipos de documentos soportados
+  """
+  def get_document_types do
+    ["DNI", "NIE", "NIF", "RFC", "CURP", "CC", "CE", "NIT"]
+  end
 end
