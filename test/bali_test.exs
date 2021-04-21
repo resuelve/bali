@@ -42,6 +42,16 @@ defmodule BaliTest do
     assert {:error, "NIE inválido"} == Bali.validate(:es, :nie, value)
   end
 
+  test "Puedo validar el identificador NIF(Número de identificación fiscal) de España exitosamente" do
+    value = "46324571H"
+    assert {:ok, value} == Bali.validate(:es, :nif, value)
+  end
+
+  test "Puedo validar que el identificador NIF(Número de identificación fiscal) de España no es correcto" do
+    value = "46324571I"
+    assert {:error, "NIF inválido"} == Bali.validate(:es, :nif, value)
+  end
+
   test "Puedo validar el identificador CC(Cédula de Ciudadania) de Colombia exitosamente" do
     value = "1234567891"
     assert {:ok, value} == Bali.validate(:co, :cc, value)
@@ -102,8 +112,117 @@ defmodule BaliTest do
     assert {:error, "NIF inválido"} == Bali.validate(:it, :nif, value)
   end
 
+  test "Puedo validar el número de la CIE(Carta de Identidad Electrónica) para Italia exitosamente" do
+    value = "CA00000AA"
+    assert {:ok, value} == Bali.validate(:it, :cie, value)
+  end
+
+  test "Puedo validar el número de la CIE(Carta de Identidad Electrónica) para Italia no es correcto" do
+    value = "BA00000AA"
+    assert {:error, "CIE inválido"} == Bali.validate(:it, :cie, value)
+  end
+
   test "Puedo validar mandar un mensaje de error, si el país no es soportado" do
     assert {:error, "País sk no soportado"} ==
              Bali.validate(:sk, :dni, "12345678A")
+  end
+
+  test "Puedo validar que el documento fiscal para México(rfc), pertenece al conjunto de documentos válidos y su valor es correcto" do
+    assert {:ok, "AAFI7906296J1"} == Bali.validate_fiscal(:mx, :rfc, "AAFI7906296J1")
+  end
+
+  test "Puedo validar que el documento fiscal para México(invalid_rfc), no pertenece al conjunto de documentos válidos" do
+    assert {:error, "Documento fiscal inválido para el país: mx"} ==
+             Bali.validate_fiscal(:mx, :invalid_rfc, "AAFI7906296J1")
+  end
+
+  test "Puedo validar que el documento fiscal para Colombia(nit) pertenece al conjunto de documentos válidos y su valor es correcto" do
+    assert {:ok, "123456-1"} == Bali.validate_fiscal(:co, :nit, "123456-1")
+  end
+
+  test "Puedo validar que el documento fiscal para Colombia(invalid_nit) no pertenece al conjunto de documentos válidos" do
+    assert {:error, "Documento fiscal inválido para el país: co"} ==
+             Bali.validate_fiscal(:co, :invalid_nit, "123456-1")
+  end
+
+  test "Puedo validar que el documento fiscal para España(nif) pertenece al conjunto de documentos válidos y su valor es correcto" do
+    assert {:ok, "46324571H"} == Bali.validate_fiscal(:es, :nif, "46324571H")
+  end
+
+  test "Puedo validar que el documento fiscal para España(invalid_nif) no pertenece al conjunto de documentos válidos" do
+    assert {:error, "Documento fiscal inválido para el país: es"} ==
+             Bali.validate_fiscal(:es, :invalid_nif, "46324571H")
+  end
+
+  test "Puedo validar que el documento fiscal para Italia(nif) pertenece al conjunto de documentos válidos y su valor es correcto" do
+    assert {:ok, "VRDGPP13R10B293P"} == Bali.validate_fiscal(:it, :nif, "VRDGPP13R10B293P")
+  end
+
+  test "Puedo validar que el documento fiscal para Italia(invalid_nif) no pertenece al conjunto de documentos válidos" do
+    assert {:error, "Documento fiscal inválido para el país: it"} ==
+             Bali.validate_fiscal(:it, :invalid_nif, "VRDGPP13R10B293P")
+  end
+
+  test "Puedo validar que el documento fiscal para Portugal(nif) pertenece al conjunto de documentos válidos y su valor es correcto" do
+    assert {:ok, "123456789"} == Bali.validate_fiscal(:pt, :nif, "123456789")
+  end
+
+  test "Puedo validar que el documento fiscal para Portugal(invalid_nif) no pertenece al conjunto de documentos válidos" do
+    assert {:error, "Documento fiscal inválido para el país: it"} ==
+             Bali.validate_fiscal(:it, :invalid_nif, "123456789")
+  end
+
+  test "Puedo validar que el documento personal para México(rfc) pertenece al conjunto de documentos válidos y su valor es correcto" do
+    assert {:ok, "ROCE000131HNLDNDA0"} == Bali.validate_personal(:mx, :curp, "ROCE000131HNLDNDA0")
+  end
+
+  test "Puedo validar que el documento personal para México(invalid_rfc) no pertenece al conjunto de documentos válidos" do
+    assert {:error, "Documento personal inválido para el país: mx"} ==
+             Bali.validate_personal(:mx, :invalid_rfc, "AAFI7906296J1")
+  end
+
+  test "Puedo validar que el documento personal para Colombia(cc) pertenece al conjunto de documentos válidos y su valor es correcto" do
+    assert {:ok, "1234567891"} == Bali.validate_personal(:co, :cc, "1234567891")
+  end
+
+  test "Puedo validar que el documento personal para Colombia(invalid_cc) no pertenece al conjunto de documentos válidos" do
+    assert {:error, "Documento personal inválido para el país: co"} ==
+             Bali.validate_personal(:co, :invalid_cc, "1234567891")
+  end
+
+  test "Puedo validar que el documento personal para Colombia(ce) pertenece al conjunto de documentos válidos y su valor es correcto" do
+    assert {:ok, "123456"} == Bali.validate_personal(:co, :ce, "123456")
+  end
+
+  test "Puedo validar que el documento personal para Colombia(invalid_ce) no pertenece al conjunto de documentos válidos" do
+    assert {:error, "Documento personal inválido para el país: co"} ==
+             Bali.validate_personal(:co, :invalid_ce, "123456")
+  end
+
+  test "Puedo validar que el documento personal para España(dni) pertenece al conjunto de documentos válidos y su valor es correcto" do
+    assert {:ok, "46324571H"} == Bali.validate_personal(:es, :dni, "46324571H")
+  end
+
+  test "Puedo validar que el documento personal para España(invalid_dni) no pertenece al conjunto de documentos válidos" do
+    assert {:error, "Documento personal inválido para el país: es"} ==
+             Bali.validate_personal(:es, :invalid_dni, "46324571H")
+  end
+
+  test "Puedo validar que el documento personal para España(nie) pertenece al conjunto de documentos válidos y su valor es correcto" do
+    assert {:ok, "Z1234567R"} == Bali.validate_personal(:es, :nie, "Z1234567R")
+  end
+
+  test "Puedo validar que el documento personal para España(invalid_nie) no pertenece al conjunto de documentos válidos" do
+    assert {:error, "Documento personal inválido para el país: es"} ==
+             Bali.validate_personal(:es, :invalid_nie, "Z1234567R")
+  end
+
+  test "Puedo validar que el documento personal para Italia(cie) pertenece al conjunto de documentos válidos y su valor es correcto" do
+    assert {:ok, "CA00000AA"} == Bali.validate_personal(:it, :cie, "CA00000AA")
+  end
+
+  test "Puedo validar que el documento personal para Italia(invalid_cie) no pertenece al conjunto de documentos válidos" do
+    assert {:error, "Documento personal inválido para el país: it"} ==
+             Bali.validate_personal(:it, :invalid_cie, "CA00000AA")
   end
 end

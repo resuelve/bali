@@ -23,6 +23,16 @@ defmodule Validators.SpainTest do
     assert {:error, "NIE inválido"} == Spain.valid(:nie, value)
   end
 
+  test "Puedo validar que el NIF(Número de identificación fiscal) es correcto" do
+    value = "46324571H"
+    assert {:ok, "46324571H"} == Spain.valid(:nif, value)
+  end
+
+  test "Puedo validar que el NIF(Número de identificación fiscal) es incorrecto" do
+    value = "46324571I"
+    assert {:error, "NIF inválido"} == Spain.valid(:nif, value)
+  end
+
   test "Puedo validar si me mandan el parámetro de identificación y valor incorrectos se envia un mensaje de error" do
     assert {:error, "Tipo de documento inválido"} ==
              Spain.valid(:es, "12345678A")
