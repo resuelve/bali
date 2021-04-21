@@ -6,23 +6,29 @@ defmodule Validators.Spain do
   """
 
   @doc """
-  Valida el formato del DNI ó el NIE 
+  Valida el formato del DNI, NIE o NIF
 
   ## Ejemplos:
 
   ```elixir
 
-    iex> Validators.Spain.validate(:dni, "46324571H")
+    iex> Validators.Spain.valid(:dni, "46324571H")
     {:ok, "46324571H"}
 
-    iex> Validators.Spain.validate(:dni, "46324571I")
+    iex> Validators.Spain.valid(:dni, "46324571I")
     {:error, "DNI inválido"}
 
-    iex> Validators.Spain.validate(:nie, "Z1234567R")
+    iex> Validators.Spain.valid(:nie, "Z1234567R")
     {:ok, "Z1234567R"}
 
-    iex> Validators.Spain.validate(:nie, "Z1234567I")
+    iex> Validators.Spain.valid(:nie, "Z1234567I")
     {:error, "NIE inválido"}
+
+    iex> Validators.Spain.valid(:nif, "46324571H")
+    {:ok, "46324571H"}
+
+    iex> Validators.Spain.valid(:nif, "46324571I")
+    {:error, "NIF inválido"}    
 
   ```     
   """
@@ -40,6 +46,16 @@ defmodule Validators.Spain do
       {:ok, value}
     else
       {:error, "NIE inválido"}
+    end
+  end
+
+  # El NIF utiliza la misma estructura que un DNI o un NIE
+  # es por eso que se reutilizan las expresiones regulares
+  def valid(:nif, value) do
+    if Regex.match?(dni(), value) or Regex.match?(nie(), value) do
+      {:ok, value}
+    else
+      {:error, "NIF inválido"}
     end
   end
 
