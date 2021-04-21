@@ -22,7 +22,8 @@ defmodule Bali do
     mx: ["curp"],
     co: ["cc", "ce"],
     es: ["dni", "nie"],
-    it: ["cie"]
+    it: ["cie"],
+    pt: ["nif"]
   }
 
   @doc """
@@ -101,23 +102,23 @@ defmodule Bali do
 
   @spec do_validate(atom, atom, String.t()) :: {:ok, String.t()} | {:error, String.t()}
   defp do_validate(:pt, document_type, value) do
-    Portugal.valid(document_type, value)
+    Portugal.validate(document_type, value)
   end
 
   defp do_validate(:es, document_type, value) do
-    Spain.valid(document_type, value)
+    Spain.validate(document_type, value)
   end
 
   defp do_validate(:co, document_type, value) do
-    Colombia.valid(document_type, value)
+    Colombia.validate(document_type, value)
   end
 
   defp do_validate(:mx, document_type, value) do
-    Mexico.valid(document_type, value)
+    Mexico.validate(document_type, value)
   end
 
   defp do_validate(:it, document_type, value) do
-    Italy.valid(document_type, value)
+    Italy.validate(document_type, value)
   end
 
   defp do_validate(country, _document_type, _value) do
@@ -141,8 +142,9 @@ defmodule Bali do
   Revisa si el tipo documento fiscal recibido se encuentra en la lista de documentos
   válidos y verifica que su valor sea correcto
   """
-  @spec validate_fiscal(atom, atom, String.t()) :: {:ok, String.t()} | {:error, String.t()}
-  def validate_fiscal(country, document_type, value) do
+  @spec validate_fiscal_document(atom, atom, String.t()) ::
+          {:ok, String.t()} | {:error, String.t()}
+  def validate_fiscal_document(country, document_type, value) do
     case Map.get(@tax_documents, country) do
       nil ->
         {:error, "País no soportado"}
@@ -160,8 +162,9 @@ defmodule Bali do
   Revisa si el tipo documento personal recibido se encuentra en la lista de documentos
   válidos y verifica que su valor sea correcto
   """
-  @spec validate_personal(atom, atom, String.t()) :: {:ok, String.t()} | {:error, String.t()}
-  def validate_personal(country, document_type, value) do
+  @spec validate_personal_document(atom, atom, String.t()) ::
+          {:ok, String.t()} | {:error, String.t()}
+  def validate_personal_document(country, document_type, value) do
     case Map.get(@personal_documents, country) do
       nil ->
         {:error, "País no soportado"}
