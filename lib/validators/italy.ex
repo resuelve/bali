@@ -2,20 +2,27 @@ defmodule Validators.Italy do
   @moduledoc """
   Validador para los identificadores personales y fiscales de Italia.
   Soporta el NIF (Número de identificación fiscal)
+  Soporta el número de CIE (Carta de Identidad Electrónica)
   """
 
   @doc """
-  Valida el formato del NIF
+  Valida el formato del NIF o el número de CIE
     
   ## Ejemplos:
 
   ```elixir
 
-    iex> Validators.Italy.validate(:nif, "VRDGPP13R10B293P")
+    iex> Validators.Italy.valid(:nif, "VRDGPP13R10B293P")
     {:ok, "VRDGPP13R10B293P"}
 
-    iex> Validators.Italy.validate(:nif, "VRDGPP13R10B29BP")
+    iex> Validators.Italy.valid(:nif, "VRDGPP13R10B29BP")
     {:error, "NIF inválido"}
+
+    iex> Validators.Italy.valid(:cie, "CA00000AA")
+    {:ok, "CA00000AA"}
+
+    iex> Validators.Italy.valid(:cie, "BA00000AA")
+    {:error, "CIE inválido"}
 
   ```    
   """
@@ -28,8 +35,25 @@ defmodule Validators.Italy do
     end
   end
 
+  @spec valid(atom, String.t()) :: {:ok, String.t()} | {:error, String.t()}
+  def valid(:cie, value) do
+    if Regex.match?(cie(), value) do
+      {:ok, value}
+    else
+      {:error, "CIE inválido"}
+    end
+  end
+
   def valid(_, _) do
     {:error, "Tipo de documento inválido"}
+  end
+
+  # Expresión regular para validar el número de la CIE(Carta de Identidad Electrónica)
+  # Su estructura es iniciar con la letra C, una letra, 5 dígitos y dos letras
+  # ejemplo 'CA00000AA'
+  @spec cie() :: Regex.t()
+  defp cie do
+    ~r/^C[A-Z]\d{5}[A-Z]{2}$/
   end
 
   # Expresión regular para validar el NIF
