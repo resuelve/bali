@@ -11,10 +11,10 @@ defmodule Validators.Portugal do
 
   ```elixir
 
-    iex> Validators.Portugal.validate(:nif, "123456789")
+    iex> Validators.Portugal.valid(:nif, "123456789")
     {:ok, "123456789"}
 
-    iex> Validators.Portugal.validate(:nif, "12345678")
+    iex> Validators.Portugal.valid(:nif, "12345678")
     {:error, "NIF inválido"}
 
   ```    

@@ -12,22 +12,22 @@ defmodule Validators.Colombia do
 
   ```elixir
 
-    iex> Validators.Colombia.validate(:cc, "1234567891")
+    iex> Validators.Colombia.valid(:cc, "1234567891")
     {:ok, "1234567891"}
 
-    iex> Validators.Colombia.validate(:cc, "12345678912")
+    iex> Validators.Colombia.valid(:cc, "12345678912")
     {:error, "CC inválida"}
 
-    iex> Validators.Colombia.validate(:ce, "123456")
+    iex> Validators.Colombia.valid(:ce, "123456")
     {:ok, "123456"}
 
-    iex> Validators.Colombia.validate(:ce, "1234567")
+    iex> Validators.Colombia.valid(:ce, "1234567")
     {:error, "CE inválida"}    
 
-    iex> Validators.Colombia.validate(:nit, "123456-1")
+    iex> Validators.Colombia.valid(:nit, "123456-1")
     {:ok, "123456-1"}
 
-    iex> Validators.Colombia.validate(:nit, "123456-12")
+    iex> Validators.Colombia.valid(:nit, "123456-12")
     {:error, "NIT inválido"}    
 
   ```      
