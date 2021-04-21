@@ -12,22 +12,22 @@ defmodule Validators.Mexico do
 
   ```elixir
 
-    iex> Validators.Mexico.valid(:curp, "ROCE000131HNLDNDA0")
+    iex> Validators.Mexico.validate(:curp, "ROCE000131HNLDNDA0")
     {:ok, "ROCE000131HNLDNDA0"}
 
-    iex> Validators.Mexico.valid(:curp, "BADD110313HCMLNS0Q")
+    iex> Validators.Mexico.validate(:curp, "BADD110313HCMLNS0Q")
     {:error, "CURP inválido"}
 
-    iex> Validators.Mexico.valid(:rfc, "AAFI7906296J1")
+    iex> Validators.Mexico.validate(:rfc, "AAFI7906296J1")
     {:ok, "AAFI7906296J1"}
 
-    iex> Validators.Mexico.valid(:rfc, "OIBD890101MQB")
+    iex> Validators.Mexico.validate(:rfc, "OIBD890101MQB")
     {:error, "RFC inválido"}
 
   ```
   """
-  @spec valid(atom, String.t()) :: {:ok, String.t()} | {:error, String.t()}
-  def valid(:curp, value) do
+  @spec validate(atom, String.t()) :: {:ok, String.t()} | {:error, String.t()}
+  def validate(:curp, value) do
     if Regex.match?(curp(), value) do
       {:ok, value}
     else
@@ -35,7 +35,7 @@ defmodule Validators.Mexico do
     end
   end
 
-  def valid(:rfc, value) do
+  def validate(:rfc, value) do
     if Regex.match?(rfc(), value) do
       {:ok, value}
     else
@@ -43,7 +43,7 @@ defmodule Validators.Mexico do
     end
   end
 
-  def valid(_, _) do
+  def validate(_, _) do
     {:error, "Tipo de documento inválido"}
   end
 

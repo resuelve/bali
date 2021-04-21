@@ -12,22 +12,22 @@ defmodule Validators.Italy do
 
   ```elixir
 
-    iex> Validators.Italy.valid(:nif, "VRDGPP13R10B293P")
+    iex> Validators.Italy.validate(:nif, "VRDGPP13R10B293P")
     {:ok, "VRDGPP13R10B293P"}
 
-    iex> Validators.Italy.valid(:nif, "VRDGPP13R10B29BP")
+    iex> Validators.Italy.validate(:nif, "VRDGPP13R10B29BP")
     {:error, "NIF inválido"}
 
-    iex> Validators.Italy.valid(:cie, "CA00000AA")
+    iex> Validators.Italy.validate(:cie, "CA00000AA")
     {:ok, "CA00000AA"}
 
-    iex> Validators.Italy.valid(:cie, "BA00000AA")
+    iex> Validators.Italy.validate(:cie, "BA00000AA")
     {:error, "CIE inválido"}
 
   ```    
   """
-  @spec valid(atom, String.t()) :: {:ok, String.t()} | {:error, String.t()}
-  def valid(:nif, value) do
+  @spec validate(atom, String.t()) :: {:ok, String.t()} | {:error, String.t()}
+  def validate(:nif, value) do
     if Regex.match?(nif(), value) do
       {:ok, value}
     else
@@ -35,8 +35,8 @@ defmodule Validators.Italy do
     end
   end
 
-  @spec valid(atom, String.t()) :: {:ok, String.t()} | {:error, String.t()}
-  def valid(:cie, value) do
+  @spec validate(atom, String.t()) :: {:ok, String.t()} | {:error, String.t()}
+  def validate(:cie, value) do
     if Regex.match?(cie(), value) do
       {:ok, value}
     else
@@ -44,7 +44,7 @@ defmodule Validators.Italy do
     end
   end
 
-  def valid(_, _) do
+  def validate(_, _) do
     {:error, "Tipo de documento inválido"}
   end
 

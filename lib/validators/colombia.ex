@@ -12,28 +12,28 @@ defmodule Validators.Colombia do
 
   ```elixir
 
-    iex> Validators.Colombia.valid(:cc, "1234567891")
+    iex> Validators.Colombia.validate(:cc, "1234567891")
     {:ok, "1234567891"}
 
-    iex> Validators.Colombia.valid(:cc, "12345678912")
+    iex> Validators.Colombia.validate(:cc, "12345678912")
     {:error, "CC inválida"}
 
-    iex> Validators.Colombia.valid(:ce, "123456")
+    iex> Validators.Colombia.validate(:ce, "123456")
     {:ok, "123456"}
 
-    iex> Validators.Colombia.valid(:ce, "1234567")
+    iex> Validators.Colombia.validate(:ce, "1234567")
     {:error, "CE inválida"}    
 
-    iex> Validators.Colombia.valid(:nit, "123456-1")
+    iex> Validators.Colombia.validate(:nit, "123456-1")
     {:ok, "123456-1"}
 
-    iex> Validators.Colombia.valid(:nit, "123456-12")
+    iex> Validators.Colombia.validate(:nit, "123456-12")
     {:error, "NIT inválido"}    
 
   ```      
   """
-  @spec valid(atom, String.t()) :: {:ok, String.t()} | {:error, String.t()}
-  def valid(:cc, value) do
+  @spec validate(atom, String.t()) :: {:ok, String.t()} | {:error, String.t()}
+  def validate(:cc, value) do
     if Regex.match?(cc(), value) do
       {:ok, value}
     else
@@ -41,7 +41,7 @@ defmodule Validators.Colombia do
     end
   end
 
-  def valid(:ce, value) do
+  def validate(:ce, value) do
     if Regex.match?(ce(), value) do
       {:ok, value}
     else
@@ -49,7 +49,7 @@ defmodule Validators.Colombia do
     end
   end
 
-  def valid(:nit, value) do
+  def validate(:nit, value) do
     if Regex.match?(nit(), value) do
       {:ok, value}
     else
@@ -57,7 +57,7 @@ defmodule Validators.Colombia do
     end
   end
 
-  def valid(_, _) do
+  def validate(_, _) do
     {:error, "Tipo de documento inválido"}
   end
 

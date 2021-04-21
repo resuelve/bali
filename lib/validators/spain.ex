@@ -12,28 +12,28 @@ defmodule Validators.Spain do
 
   ```elixir
 
-    iex> Validators.Spain.valid(:dni, "46324571H")
+    iex> Validators.Spain.validate(:dni, "46324571H")
     {:ok, "46324571H"}
 
-    iex> Validators.Spain.valid(:dni, "46324571I")
+    iex> Validators.Spain.validate(:dni, "46324571I")
     {:error, "DNI inválido"}
 
-    iex> Validators.Spain.valid(:nie, "Z1234567R")
+    iex> Validators.Spain.validate(:nie, "Z1234567R")
     {:ok, "Z1234567R"}
 
-    iex> Validators.Spain.valid(:nie, "Z1234567I")
+    iex> Validators.Spain.validate(:nie, "Z1234567I")
     {:error, "NIE inválido"}
 
-    iex> Validators.Spain.valid(:nif, "46324571H")
+    iex> Validators.Spain.validate(:nif, "46324571H")
     {:ok, "46324571H"}
 
-    iex> Validators.Spain.valid(:nif, "46324571I")
+    iex> Validators.Spain.validate(:nif, "46324571I")
     {:error, "NIF inválido"}    
 
   ```     
   """
-  @spec valid(atom, String.t()) :: {:ok, String.t()} | {:error, String.t()}
-  def valid(:dni, value) do
+  @spec validate(atom, String.t()) :: {:ok, String.t()} | {:error, String.t()}
+  def validate(:dni, value) do
     if Regex.match?(dni(), value) do
       {:ok, value}
     else
@@ -41,7 +41,7 @@ defmodule Validators.Spain do
     end
   end
 
-  def valid(:nie, value) do
+  def validate(:nie, value) do
     if Regex.match?(nie(), value) do
       {:ok, value}
     else
@@ -51,7 +51,7 @@ defmodule Validators.Spain do
 
   # El NIF utiliza la misma estructura que un DNI o un NIE
   # es por eso que se reutilizan las expresiones regulares
-  def valid(:nif, value) do
+  def validate(:nif, value) do
     if Regex.match?(dni(), value) or Regex.match?(nie(), value) do
       {:ok, value}
     else
@@ -59,7 +59,7 @@ defmodule Validators.Spain do
     end
   end
 
-  def valid(_, _) do
+  def validate(_, _) do
     {:error, "Tipo de documento inválido"}
   end
 
