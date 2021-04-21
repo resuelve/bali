@@ -6,7 +6,7 @@ defmodule Validators.Spain do
   """
 
   @doc """
-  Valida el formato del DNI ó el NIE 
+  Valida el formato del DNI, NIE o NIF
 
   ## Ejemplos:
 
@@ -24,10 +24,16 @@ defmodule Validators.Spain do
     iex> Validators.Spain.validate(:nie, "Z1234567I")
     {:error, "NIE inválido"}
 
+    iex> Validators.Spain.validate(:nif, "46324571H")
+    {:ok, "46324571H"}
+
+    iex> Validators.Spain.validate(:nif, "46324571I")
+    {:error, "NIF inválido"}    
+
   ```     
   """
-  @spec valid(atom, String.t()) :: {:ok, String.t()} | {:error, String.t()}
-  def valid(:dni, value) do
+  @spec validate(atom, String.t()) :: {:ok, String.t()} | {:error, String.t()}
+  def validate(:dni, value) do
     if Regex.match?(dni(), value) do
       {:ok, value}
     else
@@ -35,7 +41,7 @@ defmodule Validators.Spain do
     end
   end
 
-  def valid(:nie, value) do
+  def validate(:nie, value) do
     if Regex.match?(nie(), value) do
       {:ok, value}
     else
@@ -43,7 +49,17 @@ defmodule Validators.Spain do
     end
   end
 
-  def valid(_, _) do
+  # El NIF utiliza la misma estructura que un DNI o un NIE
+  # es por eso que se reutilizan las expresiones regulares
+  def validate(:nif, value) do
+    if Regex.match?(dni(), value) or Regex.match?(nie(), value) do
+      {:ok, value}
+    else
+      {:error, "NIF inválido"}
+    end
+  end
+
+  def validate(_, _) do
     {:error, "Tipo de documento inválido"}
   end
 

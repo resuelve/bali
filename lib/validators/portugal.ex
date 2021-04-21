@@ -6,6 +6,8 @@ defmodule Validators.Portugal do
 
   @doc """
   Valida el formato del NIF
+  Este identificador se utiliza tanto para documentos personales 
+  como fiscales, segun lo revisado con operaciones
     
   ## Ejemplos:
 
@@ -19,8 +21,8 @@ defmodule Validators.Portugal do
 
   ```    
   """
-  @spec valid(atom, String.t()) :: {:ok, String.t()} | {:error, String.t()}
-  def valid(:nif, value) do
+  @spec validate(atom, String.t()) :: {:ok, String.t()} | {:error, String.t()}
+  def validate(:nif, value) do
     if Regex.match?(nif(), value) do
       {:ok, value}
     else
@@ -28,7 +30,7 @@ defmodule Validators.Portugal do
     end
   end
 
-  def valid(_, _) do
+  def validate(_, _) do
     {:error, "Tipo de documento inválido"}
   end
 

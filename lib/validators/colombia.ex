@@ -32,8 +32,8 @@ defmodule Validators.Colombia do
 
   ```      
   """
-  @spec valid(atom, String.t()) :: {:ok, String.t()} | {:error, String.t()}
-  def valid(:cc, value) do
+  @spec validate(atom, String.t()) :: {:ok, String.t()} | {:error, String.t()}
+  def validate(:cc, value) do
     if Regex.match?(cc(), value) do
       {:ok, value}
     else
@@ -41,7 +41,7 @@ defmodule Validators.Colombia do
     end
   end
 
-  def valid(:ce, value) do
+  def validate(:ce, value) do
     if Regex.match?(ce(), value) do
       {:ok, value}
     else
@@ -49,7 +49,7 @@ defmodule Validators.Colombia do
     end
   end
 
-  def valid(:nit, value) do
+  def validate(:nit, value) do
     if Regex.match?(nit(), value) do
       {:ok, value}
     else
@@ -57,7 +57,7 @@ defmodule Validators.Colombia do
     end
   end
 
-  def valid(_, _) do
+  def validate(_, _) do
     {:error, "Tipo de documento inválido"}
   end
 

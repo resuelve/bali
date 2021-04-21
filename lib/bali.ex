@@ -10,6 +10,22 @@ defmodule Bali do
   alias Validators.Mexico
   alias Validators.Italy
 
+  @tax_documents %{
+    mx: ["rfc"],
+    co: ["nit"],
+    es: ["nif"],
+    it: ["nif"],
+    pt: ["nif"]
+  }
+
+  @personal_documents %{
+    mx: ["curp"],
+    co: ["cc", "ce"],
+    es: ["dni", "nie"],
+    it: ["cie"],
+    pt: ["nif"]
+  }
+
   @doc """
   Valida el identificador personal o fiscal segun el país(mx,co,es,pt,it) y tipo 
 
@@ -86,23 +102,23 @@ defmodule Bali do
 
   @spec do_validate(atom, atom, String.t()) :: {:ok, String.t()} | {:error, String.t()}
   defp do_validate(:pt, document_type, value) do
-    Portugal.valid(document_type, value)
+    Portugal.validate(document_type, value)
   end
 
   defp do_validate(:es, document_type, value) do
-    Spain.valid(document_type, value)
+    Spain.validate(document_type, value)
   end
 
   defp do_validate(:co, document_type, value) do
-    Colombia.valid(document_type, value)
+    Colombia.validate(document_type, value)
   end
 
   defp do_validate(:mx, document_type, value) do
-    Mexico.valid(document_type, value)
+    Mexico.validate(document_type, value)
   end
 
   defp do_validate(:it, document_type, value) do
-    Italy.valid(document_type, value)
+    Italy.validate(document_type, value)
   end
 
   defp do_validate(country, _document_type, _value) do
@@ -120,5 +136,45 @@ defmodule Bali do
   """
   def get_document_types do
     ["DNI", "NIE", "NIF", "RFC", "CURP", "CC", "CE", "NIT"]
+  end
+
+  @doc """
+  Revisa si el tipo documento fiscal recibido se encuentra en la lista de documentos
+  válidos y verifica que su valor sea correcto
+  """
+  @spec validate_fiscal_document(atom, atom, String.t()) ::
+          {:ok, String.t()} | {:error, String.t()}
+  def validate_fiscal_document(country, document_type, value) do
+    case Map.get(@tax_documents, country) do
+      nil ->
+        {:error, "País no soportado"}
+
+      tax_documents_per_country ->
+        if Enum.member?(tax_documents_per_country, Atom.to_string(document_type)) do
+          do_validate(country, document_type, value)
+        else
+          {:error, "Documento fiscal inválido para el país: #{country}"}
+        end
+    end
+  end
+
+  @doc """
+  Revisa si el tipo documento personal recibido se encuentra en la lista de documentos
+  válidos y verifica que su valor sea correcto
+  """
+  @spec validate_personal_document(atom, atom, String.t()) ::
+          {:ok, String.t()} | {:error, String.t()}
+  def validate_personal_document(country, document_type, value) do
+    case Map.get(@personal_documents, country) do
+      nil ->
+        {:error, "País no soportado"}
+
+      personal_documents_per_country ->
+        if Enum.member?(personal_documents_per_country, Atom.to_string(document_type)) do
+          do_validate(country, document_type, value)
+        else
+          {:error, "Documento personal inválido para el país: #{country}"}
+        end
+    end
   end
 end

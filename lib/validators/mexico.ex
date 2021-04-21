@@ -26,8 +26,8 @@ defmodule Validators.Mexico do
 
   ```
   """
-  @spec valid(atom, String.t()) :: {:ok, String.t()} | {:error, String.t()}
-  def valid(:curp, value) do
+  @spec validate(atom, String.t()) :: {:ok, String.t()} | {:error, String.t()}
+  def validate(:curp, value) do
     if Regex.match?(curp(), value) do
       {:ok, value}
     else
@@ -35,7 +35,7 @@ defmodule Validators.Mexico do
     end
   end
 
-  def valid(:rfc, value) do
+  def validate(:rfc, value) do
     if Regex.match?(rfc(), value) do
       {:ok, value}
     else
@@ -43,7 +43,7 @@ defmodule Validators.Mexico do
     end
   end
 
-  def valid(_, _) do
+  def validate(_, _) do
     {:error, "Tipo de documento inválido"}
   end
 
