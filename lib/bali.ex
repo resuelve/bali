@@ -151,7 +151,7 @@ defmodule Bali do
 
       tax_documents_per_country ->
         if Enum.member?(tax_documents_per_country, Atom.to_string(document_type)) do
-          do_validate(country, document_type, value)
+          validate(country, document_type, value)
         else
           {:error, "Documento fiscal inválido para el país: #{country}"}
         end
@@ -171,7 +171,7 @@ defmodule Bali do
 
       personal_documents_per_country ->
         if Enum.member?(personal_documents_per_country, Atom.to_string(document_type)) do
-          do_validate(country, document_type, value)
+          validate(country, document_type, value)
         else
           {:error, "Documento personal inválido para el país: #{country}"}
         end
