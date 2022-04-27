@@ -122,6 +122,26 @@ defmodule BaliTest do
     assert {:error, "CIE inválido"} == Bali.validate(:it, :cie, value)
   end
 
+  test "Puedo validar el CPF(Cadastro de Pessoas Físicas) para Brazil" do
+    value = "123.456.789-01"
+    assert {:ok, value} == Bali.validate(:br, :cpf, value)
+  end
+
+  test "Puedo validar que el CPF(Cadastro de Pessoas Físicas) para Brazil no es correcto" do
+    value = "123.456.7889-A1"
+    assert {:error, "CPF inválido"} == Bali.validate(:br, :cpf, value)
+  end
+
+  test "Puedo validar el número de la CNPJ(Cadastro Nacional de Pessoas Jurídicas) para Brazil" do
+    value = "12.345.678/1234-56"
+    assert {:ok, value} == Bali.validate(:br, :cnpj, value)
+  end
+
+  test "Puedo validar el número de la CNPJ(Cadastro Nacional de Pessoas Jurídicas) para Brazil no es correcto" do
+    value = "12.345.678/1234-569"
+    assert {:error, "CNPJ inválido"} == Bali.validate(:br, :cnpj, value)
+  end
+
   test "Puedo validar mandar un mensaje de error, si el país no es soportado" do
     assert {:error, "País sk no soportado"} ==
              Bali.validate(:sk, :dni, "12345678A")
@@ -162,6 +182,16 @@ defmodule BaliTest do
   test "Puedo validar que el documento fiscal para Italia(invalid_nif) no pertenece al conjunto de documentos válidos" do
     assert {:error, "Documento fiscal inválido para el país: it"} ==
              Bali.validate_fiscal_document(:it, :invalid_nif, "VRDGPP13R10B293P")
+  end
+
+  test "Puedo validar que el documento fiscal para Brasil(cnpj) pertenece al conjunto de documentos válidos y su valor es correcto" do
+    assert {:ok, "12.345.678/1234-56"} ==
+             Bali.validate_fiscal_document(:br, :cnpj, "12.345.678/1234-56")
+  end
+
+  test "Puedo validar que el documento fiscal para Brasil(invalid_cnpj) no pertenece al conjunto de documentos válidos" do
+    assert {:error, "Documento fiscal inválido para el país: br"} ==
+             Bali.validate_fiscal_document(:br, :invalid_cnpj, "12.345.678/1234-56")
   end
 
   test "Puedo validar que el documento fiscal para Portugal(nif) pertenece al conjunto de documentos válidos y su valor es correcto" do
@@ -226,6 +256,15 @@ defmodule BaliTest do
   test "Puedo validar que el documento personal para Italia(invalid_cie) no pertenece al conjunto de documentos válidos" do
     assert {:error, "Documento personal inválido para el país: it"} ==
              Bali.validate_personal_document(:it, :invalid_cie, "CA00000AA")
+  end
+
+  test "Puedo validar que el documento personal para Brasil(cpf) pertenece al conjunto de documentos válidos y su valor es correcto" do
+    assert {:ok, "123.456.789-01"} == Bali.validate_personal_document(:br, :cpf, "123.456.789-01")
+  end
+
+  test "Puedo validar que el documento personal para Brasil(invalid_cpf) no pertenece al conjunto de documentos válidos" do
+    assert {:error, "Documento personal inválido para el país: br"} ==
+             Bali.validate_personal_document(:br, :invalid_cpf, "123.456.789-01")
   end
 
   test "Puedo validar que el documento personal para Portugal(nif) pertenece al conjunto de documentos válidos y su valor es correcto" do

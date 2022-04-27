@@ -1,7 +1,7 @@
 defmodule Bali do
   @moduledoc """
-  Módulo encargado de realizar las validaciones de identificadores personales 
-  y fiscales de México, Colombia, España, Portugal e Italia
+  Módulo encargado de realizar las validaciones de identificadores personales
+  y fiscales de México, Colombia, España, Portugal, Italia y Brasil
   """
 
   alias Validators.Portugal
@@ -9,13 +9,15 @@ defmodule Bali do
   alias Validators.Colombia
   alias Validators.Mexico
   alias Validators.Italy
+  alias Validators.Brazil
 
   @tax_documents %{
     mx: ["rfc"],
     co: ["nit"],
     es: ["nif"],
     it: ["nif"],
-    pt: ["nif"]
+    pt: ["nif"],
+    br: ["cnpj"]
   }
 
   @personal_documents %{
@@ -23,11 +25,12 @@ defmodule Bali do
     co: ["cc", "ce"],
     es: ["dni", "nie"],
     it: ["cie"],
-    pt: ["nif"]
+    pt: ["nif"],
+    br: ["cpf"]
   }
 
   @doc """
-  Valida el identificador personal o fiscal segun el país(mx,co,es,pt,it) y tipo 
+  Valida el identificador personal o fiscal segun el país(mx,co,es,pt,it,br) y tipo
 
   ## Ejemplos:
 
@@ -44,9 +47,9 @@ defmodule Bali do
     {:ok, "AAFI7906296J1"}
 
     iex> Bali.validate(:mx, :rfc, "OIBD890101MQB")
-    {:error, "RFC inválido"}    
+    {:error, "RFC inválido"}
 
-    # Colombia  
+    # Colombia
     iex> Bali.validate(:co, :cc, "123456789")
     {:ok, "123456789"}
 
@@ -57,13 +60,13 @@ defmodule Bali do
     {:ok, "123456"}
 
     iex> Bali.validate(:co, :ce, "1234567")
-    {:error, "CE inválida"}    
+    {:error, "CE inválida"}
 
     iex> Bali.validate(:co, :nit, "123456-1")
     {:ok, "123456-1"}
 
     iex> Bali.validate(:co, :nit, "123456-12")
-    {:error, "NIT inválido"}    
+    {:error, "NIT inválido"}
 
     # España
     iex> Bali.validate(:es, :dni, "46324571H")
@@ -76,15 +79,15 @@ defmodule Bali do
     {:ok, "Z1234567R"}
 
     iex> Bali.validate(:es, :nie, "Z1234567I")
-    {:error, "NIE inválido"}    
+    {:error, "NIE inválido"}
 
     # Italia
     iex> Bali.validate(:it, :nif, "VRDGPP13R10B293P")
     {:ok, "VRDGPP13R10B293P"}
 
     iex> Bali.validate(:it, :nif, "VRDGPP13R10B29BP")
-    {:error, "NIF inválido"}    
-    
+    {:error, "NIF inválido"}
+
     # Portugal
     iex> Bali.validate(:pt, :nif, "123456789")
     {:ok, "123456789"}
@@ -92,7 +95,20 @@ defmodule Bali do
     iex> Bali.validate(:pt, :nif, "12345678")
     {:error, "NIF inválido"}
 
-  ```      
+    # Brasil
+    iex> Bali.validate(:br, :cpf, "000.000.000-00")
+    {:ok, "000.000.000-00"}
+
+    iex> Bali.validate(:br, :cpf, "000.000.000-000")
+    {:error, "CPF inválido"}
+
+    iex> Bali.validate(:br, :cnpj, "00.000.000/0000-00")
+    {:ok, "00.000.000/0000-00"}
+
+    iex> Bali.validate(:br, :cnpj, "00.000.000/0000-000")
+    {:error, "CNPJ inválido"}
+
+  ```
   """
   @spec validate(atom, atom, String.t()) :: {:ok, String.t()} | {:error, String.t()}
   def validate(country, document_type, value) do
@@ -121,6 +137,10 @@ defmodule Bali do
     Italy.validate(document_type, value)
   end
 
+  defp do_validate(:br, document_type, value) do
+    Brazil.validate(document_type, value)
+  end
+
   defp do_validate(country, _document_type, _value) do
     {:error, "País #{country} no soportado"}
   end
@@ -135,7 +155,7 @@ defmodule Bali do
   Obtiene la lista de tipos de documentos soportados
   """
   def get_document_types do
-    ["DNI", "NIE", "NIF", "RFC", "CURP", "CC", "CE", "NIT"]
+    ["DNI", "NIE", "NIF", "RFC", "CURP", "CC", "CE", "NIT", "CPF", "CNPJ"]
   end
 
   @doc """
