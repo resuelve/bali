@@ -9,7 +9,8 @@ defmodule Bali.MixProject do
       elixir: "~> 1.9",
       start_permanent: Mix.env() == :prod,
       deps: deps(),
-      package: package()
+      package: package(),
+      aliases: aliases()
     ]
   end
 
@@ -33,6 +34,12 @@ defmodule Bali.MixProject do
       maintainers: ["Iván Álvarez"],
       licenses: ["Apache-2.0"],
       links: %{"GitHub" => "https://github.com/resuelve/bali"}
+    ]
+  end
+
+  defp aliases do
+    [
+      ci: ["format --check-formatted", "xref unreachable --abort-if-any", "test --cover"]
     ]
   end
 end
