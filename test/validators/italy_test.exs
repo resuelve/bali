@@ -1,8 +1,6 @@
 defmodule Validators.ItalyTest do
   use ExUnit.Case
 
-  use ExUnit.Case
-
   alias Validators.Italy
 
   test "Puedo validar el NIF(Número de identificación fiscal) para Italia" do

@@ -7,7 +7,7 @@ defmodule Validators.Italy do
 
   @doc """
   Valida el formato del NIF o el número de CIE
-    
+
   ## Ejemplos:
 
   ```elixir
@@ -24,7 +24,7 @@ defmodule Validators.Italy do
     iex> Validators.Italy.validate(:cie, "BA00000AA")
     {:error, "CIE inválido"}
 
-  ```    
+  ```
   """
   @spec validate(atom, String.t()) :: {:ok, String.t()} | {:error, String.t()}
   def validate(:nif, value) do
@@ -35,7 +35,6 @@ defmodule Validators.Italy do
     end
   end
 
-  @spec validate(atom, String.t()) :: {:ok, String.t()} | {:error, String.t()}
   def validate(:cie, value) do
     if Regex.match?(cie(), value) do
       {:ok, value}
