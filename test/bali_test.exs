@@ -199,8 +199,8 @@ defmodule BaliTest do
   end
 
   test "Puedo validar que el documento fiscal para Portugal(invalid_nif) no pertenece al conjunto de documentos válidos" do
-    assert {:error, "Documento fiscal inválido para el país: it"} ==
-             Bali.validate_fiscal_document(:it, :invalid_nif, "123456789")
+    assert {:error, "Documento fiscal inválido para el país: pt"} ==
+             Bali.validate_fiscal_document(:pt, :invalid_nif, "123456789")
   end
 
   test "Puedo validar que el documento personal para México(rfc) pertenece al conjunto de documentos válidos y su valor es correcto" do
