@@ -1,7 +1,7 @@
 defmodule Validators.SpainTest do
   use ExUnit.Case
 
-  alias Validators.Spain
+  alias Bali.Validators.Spain
 
   test "Puedo validar que el DNI(Documento Nacional de Identidad) es correcto" do
     value = "46324571H"

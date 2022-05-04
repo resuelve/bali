@@ -1,4 +1,4 @@
-defmodule Validators.Colombia do
+defmodule Bali.Validators.Colombia do
   @moduledoc """
   Validador para los identificadores personales y fiscales de Colombia.
   Soporta la CC (Cédula de Ciudadania), la CE (Cédula de Extranjería) y 
@@ -12,22 +12,22 @@ defmodule Validators.Colombia do
 
   ```elixir
 
-    iex> Validators.Colombia.validate(:cc, "1234567891")
+    iex> Bali.Validators.Colombia.validate(:cc, "1234567891")
     {:ok, "1234567891"}
 
-    iex> Validators.Colombia.validate(:cc, "12345678912")
+    iex> Bali.Validators.Colombia.validate(:cc, "12345678912")
     {:error, "CC inválida"}
 
-    iex> Validators.Colombia.validate(:ce, "123456")
+    iex> Bali.Validators.Colombia.validate(:ce, "123456")
     {:ok, "123456"}
 
-    iex> Validators.Colombia.validate(:ce, "1234567")
+    iex> Bali.Validators.Colombia.validate(:ce, "1234567")
     {:error, "CE inválida"}    
 
-    iex> Validators.Colombia.validate(:nit, "123456-1")
+    iex> Bali.Validators.Colombia.validate(:nit, "123456-1")
     {:ok, "123456-1"}
 
-    iex> Validators.Colombia.validate(:nit, "123456-12")
+    iex> Bali.Validators.Colombia.validate(:nit, "123456-12")
     {:error, "NIT inválido"}    
 
   ```      

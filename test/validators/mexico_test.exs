@@ -1,7 +1,7 @@
 defmodule Validators.MexicoTest do
   use ExUnit.Case
 
-  alias Validators.Mexico
+  alias Bali.Validators.Mexico
 
   test "Puedo validar que el RFC es correcto" do
     value = "AAFI7906296J1"

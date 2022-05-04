@@ -1,4 +1,4 @@
-defmodule Validators.Mexico do
+defmodule Bali.Validators.Mexico do
   @moduledoc """
   Validador para los identificadores personales y fiscales de Mexico.
   Soporta el RFC (Registro Federal de Contribuyentes) y el 
@@ -12,16 +12,16 @@ defmodule Validators.Mexico do
 
   ```elixir
 
-    iex> Validators.Mexico.validate(:curp, "ROCE000131HNLDNDA0")
+    iex> Bali.Validators.Mexico.validate(:curp, "ROCE000131HNLDNDA0")
     {:ok, "ROCE000131HNLDNDA0"}
 
-    iex> Validators.Mexico.validate(:curp, "BADD110313HCMLNS0Q")
+    iex> Bali.Validators.Mexico.validate(:curp, "BADD110313HCMLNS0Q")
     {:error, "CURP inválido"}
 
-    iex> Validators.Mexico.validate(:rfc, "AAFI7906296J1")
+    iex> Bali.Validators.Mexico.validate(:rfc, "AAFI7906296J1")
     {:ok, "AAFI7906296J1"}
 
-    iex> Validators.Mexico.validate(:rfc, "OIBD890101MQB")
+    iex> Bali.Validators.Mexico.validate(:rfc, "OIBD890101MQB")
     {:error, "RFC inválido"}
 
   ```

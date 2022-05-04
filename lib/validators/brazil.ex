@@ -1,4 +1,4 @@
-defmodule Validators.Brazil do
+defmodule Bali.Validators.Brazil do
   @moduledoc """
   Validador para los identificadores personales y fiscales de Brazil.
   Soporta el CPF (Cadastro de Pessoas Físicas)
@@ -12,16 +12,16 @@ defmodule Validators.Brazil do
 
   ```elixir
 
-    iex> Validators.Brazil.validate(:cpf, "000.000.000-00")
+    iex> Bali.Validators.Brazil.validate(:cpf, "000.000.000-00")
     {:ok, "000.000.000-00"}
 
-    iex> Validators.Brazil.validate(:cpf, "0000.000.000-000")
+    iex> Bali.Validators.Brazil.validate(:cpf, "0000.000.000-000")
     {:error, "CPF inválido"}
 
-    iex> Validators.Brazil.validate(:cnpj, "00.000.000/0000-00")
+    iex> Bali.Validators.Brazil.validate(:cnpj, "00.000.000/0000-00")
     {:ok, "00.000.000/0000-00"}
 
-    iex> Validators.Brazil.validate(:cnpj, "00.000.000/0000-000")
+    iex> Bali.Validators.Brazil.validate(:cnpj, "00.000.000/0000-000")
     {:error, "CNPJ inválido"}
 
   ```
