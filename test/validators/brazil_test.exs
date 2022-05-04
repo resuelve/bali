@@ -1,7 +1,7 @@
 defmodule Validators.BrazilTest do
   use ExUnit.Case
 
-  alias Validators.Brazil
+  alias Bali.Validators.Brazil
 
   test "Puedo validar el CPF(Cadastro de Pessoas Físicas) para Brazil" do
     value = "123.456.789-01"

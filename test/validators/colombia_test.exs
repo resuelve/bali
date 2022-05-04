@@ -1,7 +1,7 @@
 defmodule Validators.ColombiaTest do
   use ExUnit.Case
 
-  alias Validators.Colombia
+  alias Bali.Validators.Colombia
 
   test "Puedo validar que la CC es correcta a 6 dígitos" do
     value = "123456"

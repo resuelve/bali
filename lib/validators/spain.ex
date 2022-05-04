@@ -1,4 +1,4 @@
-defmodule Validators.Spain do
+defmodule Bali.Validators.Spain do
   @moduledoc """
   Validador para los identificadores personales y fiscales de España.
   Soporta el DNI (Documento Nacional de Identidad) y el 
@@ -12,22 +12,22 @@ defmodule Validators.Spain do
 
   ```elixir
 
-    iex> Validators.Spain.validate(:dni, "46324571H")
+    iex> Bali.Validators.Spain.validate(:dni, "46324571H")
     {:ok, "46324571H"}
 
-    iex> Validators.Spain.validate(:dni, "46324571I")
+    iex> Bali.Validators.Spain.validate(:dni, "46324571I")
     {:error, "DNI inválido"}
 
-    iex> Validators.Spain.validate(:nie, "Z1234567R")
+    iex> Bali.Validators.Spain.validate(:nie, "Z1234567R")
     {:ok, "Z1234567R"}
 
-    iex> Validators.Spain.validate(:nie, "Z1234567I")
+    iex> Bali.Validators.Spain.validate(:nie, "Z1234567I")
     {:error, "NIE inválido"}
 
-    iex> Validators.Spain.validate(:nif, "46324571H")
+    iex> Bali.Validators.Spain.validate(:nif, "46324571H")
     {:ok, "46324571H"}
 
-    iex> Validators.Spain.validate(:nif, "46324571I")
+    iex> Bali.Validators.Spain.validate(:nif, "46324571I")
     {:error, "NIF inválido"}    
 
   ```     

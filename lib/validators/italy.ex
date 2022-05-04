@@ -1,4 +1,4 @@
-defmodule Validators.Italy do
+defmodule Bali.Validators.Italy do
   @moduledoc """
   Validador para los identificadores personales y fiscales de Italia.
   Soporta el NIF (Número de identificación fiscal)
@@ -12,16 +12,16 @@ defmodule Validators.Italy do
 
   ```elixir
 
-    iex> Validators.Italy.validate(:nif, "VRDGPP13R10B293P")
+    iex> Bali.Validators.Italy.validate(:nif, "VRDGPP13R10B293P")
     {:ok, "VRDGPP13R10B293P"}
 
-    iex> Validators.Italy.validate(:nif, "VRDGPP13R10B29BP")
+    iex> Bali.Validators.Italy.validate(:nif, "VRDGPP13R10B29BP")
     {:error, "NIF inválido"}
 
-    iex> Validators.Italy.validate(:cie, "CA00000AA")
+    iex> Bali.Validators.Italy.validate(:cie, "CA00000AA")
     {:ok, "CA00000AA"}
 
-    iex> Validators.Italy.validate(:cie, "BA00000AA")
+    iex> Bali.Validators.Italy.validate(:cie, "BA00000AA")
     {:error, "CIE inválido"}
 
   ```

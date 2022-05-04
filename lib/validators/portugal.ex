@@ -1,4 +1,4 @@
-defmodule Validators.Portugal do
+defmodule Bali.Validators.Portugal do
   @moduledoc """
   Validador para los identificadores personales y fiscales de Portugal.
   Soporta el NIF (Número de identificación fiscal)
@@ -13,10 +13,10 @@ defmodule Validators.Portugal do
 
   ```elixir
 
-    iex> Validators.Portugal.validate(:nif, "123456789")
+    iex> Bali.Validators.Portugal.validate(:nif, "123456789")
     {:ok, "123456789"}
 
-    iex> Validators.Portugal.validate(:nif, "12345678")
+    iex> Bali.Validators.Portugal.validate(:nif, "12345678")
     {:error, "NIF inválido"}
 
   ```    

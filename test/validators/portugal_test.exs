@@ -1,7 +1,7 @@
 defmodule Validators.PortugalTest do
   use ExUnit.Case
 
-  alias Validators.Portugal
+  alias Bali.Validators.Portugal
 
   test "Puedo validar el NIF(Número de identificación fiscal) para Portugal" do
     value = "123456789"

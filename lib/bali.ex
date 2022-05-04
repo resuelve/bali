@@ -4,12 +4,14 @@ defmodule Bali do
   y fiscales de México, Colombia, España, Portugal, Italia y Brasil
   """
 
-  alias Validators.Portugal
-  alias Validators.Spain
-  alias Validators.Colombia
-  alias Validators.Mexico
-  alias Validators.Italy
-  alias Validators.Brazil
+  alias Bali.Validators.{
+    Portugal,
+    Brazil,
+    Colombia,
+    Italy,
+    Mexico,
+    Spain
+  }
 
   @tax_documents %{
     mx: ["rfc"],
