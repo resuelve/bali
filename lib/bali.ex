@@ -17,7 +17,7 @@ defmodule Bali do
     mx: ["rfc"],
     co: ["nit"],
     es: ["nif"],
-    it: ["nif"],
+    it: ["cf"],
     pt: ["nif"],
     br: ["cnpj"]
   }
@@ -26,7 +26,7 @@ defmodule Bali do
     mx: ["curp"],
     co: ["cc", "ce"],
     es: ["dni", "nie"],
-    it: ["cie"],
+    it: ["cie", "cf"],
     pt: ["nif"],
     br: ["cpf"]
   }
@@ -84,11 +84,11 @@ defmodule Bali do
     {:error, "NIE inválido"}
 
     # Italia
-    iex> Bali.validate(:it, :nif, "VRDGPP13R10B293P")
+    iex> Bali.validate(:it, :cf, "VRDGPP13R10B293P")
     {:ok, "VRDGPP13R10B293P"}
 
-    iex> Bali.validate(:it, :nif, "VRDGPP13R10B29BP")
-    {:error, "NIF inválido"}
+    iex> Bali.validate(:it, :cf, "VRDGPP13R10B29BP")
+    {:error, "CF inválido"}
 
     # Portugal
     iex> Bali.validate(:pt, :nif, "123456789")
