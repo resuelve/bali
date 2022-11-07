@@ -3,14 +3,14 @@ defmodule Validators.ItalyTest do
 
   alias Bali.Validators.Italy
 
-  test "Puedo validar el NIF(Número de identificación fiscal) para Italia" do
+  test "Puedo validar el CF(Codide Fiscale) para Italia" do
     value = "VRDGPP13R10B293P"
-    assert {:ok, value} == Italy.validate(:nif, value)
+    assert {:ok, value} == Italy.validate(:cf, value)
   end
 
-  test "Puedo validar que el NIF(Número de identificación fiscal) para Italia no es correcto" do
+  test "Puedo validar que el CF(Codide Fiscale) para Italia no es correcto" do
     value = "VRDGPP13R10B29BP"
-    assert {:error, "NIF inválido"} == Italy.validate(:nif, value)
+    assert {:error, "CF inválido"} == Italy.validate(:cf, value)
   end
 
   test "Puedo validar el número de la CIE(Carta de Identidad Electrónica) para Italia" do

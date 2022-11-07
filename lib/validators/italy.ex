@@ -1,22 +1,22 @@
 defmodule Bali.Validators.Italy do
   @moduledoc """
   Validador para los identificadores personales y fiscales de Italia.
-  Soporta el NIF (Número de identificación fiscal)
+  Soporta el CF (Codice Fiscale)
   Soporta el número de CIE (Carta de Identidad Electrónica)
   """
 
   @doc """
-  Valida el formato del NIF o el número de CIE
+  Valida el formato del CF o el número de CIE
 
   ## Ejemplos:
 
   ```elixir
 
-    iex> Bali.Validators.Italy.validate(:nif, "VRDGPP13R10B293P")
+    iex> Bali.Validators.Italy.validate(:cf, "VRDGPP13R10B293P")
     {:ok, "VRDGPP13R10B293P"}
 
-    iex> Bali.Validators.Italy.validate(:nif, "VRDGPP13R10B29BP")
-    {:error, "NIF inválido"}
+    iex> Bali.Validators.Italy.validate(:cf, "VRDGPP13R10B29BP")
+    {:error, "CF inválido"}
 
     iex> Bali.Validators.Italy.validate(:cie, "CA00000AA")
     {:ok, "CA00000AA"}
@@ -27,11 +27,11 @@ defmodule Bali.Validators.Italy do
   ```
   """
   @spec validate(atom, String.t()) :: {:ok, String.t()} | {:error, String.t()}
-  def validate(:nif, value) do
-    if Regex.match?(nif(), value) do
+  def validate(:cf, value) do
+    if Regex.match?(cf(), value) do
       {:ok, value}
     else
-      {:error, "NIF inválido"}
+      {:error, "CF inválido"}
     end
   end
 
@@ -55,7 +55,7 @@ defmodule Bali.Validators.Italy do
     ~r/^C[A-Z]\d{5}[A-Z]{2}$/
   end
 
-  # Expresión regular para validar el NIF
+  # Expresión regular para validar el CF
   # Su estructura es la siguiente:
   #   - Se utilizan las tres primeras consonantes del apellido
   #   - Se utilizan las tres primeras consonantes del nombre
@@ -64,8 +64,8 @@ defmodule Bali.Validators.Italy do
   #   - Cumpleaños y sexo (2 dígitos)
   #   - Ciudad de nacimiento (4 caracteres alfanuméricos)
   #   - Caracter de control (una letra)
-  @spec nif() :: Regex.t()
-  defp nif do
+  @spec cf() :: Regex.t()
+  defp cf do
     ~r/^([A-Z]{6}[0-9LMNPQRSTUV]{2}[ABCDEHLMPRST]{1}[0-9LMNPQRSTUV]{2}[A-Z]{1}[0-9LMNPQRSTUV]{3}[A-Z]{1})$|([0-9]{11})$/
   end
 end

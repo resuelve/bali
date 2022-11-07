@@ -102,14 +102,14 @@ defmodule BaliTest do
     assert {:error, "CURP inválido"} == Bali.validate(:mx, :curp, value)
   end
 
-  test "Puedo validar el identificador NIF(Numero de identificacion fiscal) de Italia exitosamente" do
+  test "Puedo validar el identificador CF(Codice Fiscale) de Italia exitosamente" do
     value = "VRDGPP13R10B293P"
-    assert {:ok, value} == Bali.validate(:it, :nif, value)
+    assert {:ok, value} == Bali.validate(:it, :cf, value)
   end
 
-  test "Puedo verificar que el identificador NIF(Numero de identificacion fiscal) de Italia no es correcto" do
+  test "Puedo verificar que el identificador CF(Codice Fiscale) de Italia no es correcto" do
     value = "VRDGPP13R10B29BP"
-    assert {:error, "NIF inválido"} == Bali.validate(:it, :nif, value)
+    assert {:error, "CF inválido"} == Bali.validate(:it, :cf, value)
   end
 
   test "Puedo validar el número de la CIE(Carta de Identidad Electrónica) para Italia exitosamente" do
@@ -174,14 +174,14 @@ defmodule BaliTest do
              Bali.validate_fiscal_document(:es, :invalid_nif, "46324571H")
   end
 
-  test "Puedo validar que el documento fiscal para Italia(nif) pertenece al conjunto de documentos válidos y su valor es correcto" do
+  test "Puedo validar que el documento fiscal para Italia(cf) pertenece al conjunto de documentos válidos y su valor es correcto" do
     assert {:ok, "VRDGPP13R10B293P"} ==
-             Bali.validate_fiscal_document(:it, :nif, "VRDGPP13R10B293P")
+             Bali.validate_fiscal_document(:it, :cf, "VRDGPP13R10B293P")
   end
 
-  test "Puedo validar que el documento fiscal para Italia(invalid_nif) no pertenece al conjunto de documentos válidos" do
+  test "Puedo validar que el documento fiscal para Italia(invalid_cf) no pertenece al conjunto de documentos válidos" do
     assert {:error, "Documento fiscal inválido para el país: it"} ==
-             Bali.validate_fiscal_document(:it, :invalid_nif, "VRDGPP13R10B293P")
+             Bali.validate_fiscal_document(:it, :invalid_cf, "VRDGPP13R10B293P")
   end
 
   test "Puedo validar que el documento fiscal para Brasil(cnpj) pertenece al conjunto de documentos válidos y su valor es correcto" do
