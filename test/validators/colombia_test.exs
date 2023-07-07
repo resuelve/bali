@@ -57,4 +57,9 @@ defmodule Validators.ColombiaTest do
     assert {:error, "Tipo de documento inválido"} ==
              Colombia.validate(:ab, "12345678A")
   end
+
+  test "Validate a correct passport number" do
+    value = "AT386158"
+    assert {:ok, value} == Colombia.validate(:passport, value)
+  end
 end

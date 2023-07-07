@@ -57,6 +57,17 @@ defmodule Bali.Validators.Colombia do
     end
   end
 
+  def validate(:passport, value) do
+    # we don't have a way to validate a passport, every country has its own format
+    {:ok, value}
+  end
+
+  def validate(:password, value) do
+    # this is a temporal document that it will be converted into a CC
+    # the number will be the same so we can reuse the regex
+    validate(:cc, value)
+  end
+
   def validate(_, _) do
     {:error, "Tipo de documento inválido"}
   end

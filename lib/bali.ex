@@ -24,7 +24,7 @@ defmodule Bali do
 
   @personal_documents %{
     mx: ["curp"],
-    co: ["cc", "ce"],
+    co: ["cc", "ce", "passport", "password"],
     es: ["dni", "nie"],
     it: ["cie", "cf"],
     pt: ["nif"],
@@ -157,7 +157,7 @@ defmodule Bali do
   Obtiene la lista de tipos de documentos soportados
   """
   def get_document_types do
-    ["DNI", "NIE", "NIF", "RFC", "CURP", "CC", "CE", "NIT", "CPF", "CNPJ"]
+    ["DNI", "NIE", "NIF", "RFC", "CURP", "CC", "CE", "NIT", "CPF", "CNPJ", "PASSPORT", "PASSWORD"]
   end
 
   @doc """
