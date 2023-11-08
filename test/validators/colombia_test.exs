@@ -38,8 +38,13 @@ defmodule Validators.ColombiaTest do
     assert {:ok, value} == Colombia.validate(:ce, value)
   end
 
-  test "Puedo verificar que la CE es inválida a 7 dígitos" do
+   test "Puedo validar que la CE es correcta a 7 dígitos" do
     value = "1234567"
+    assert {:ok, value} == Colombia.validate(:ce, value)
+  end
+
+  test "Puedo verificar que la CE es inválida a 8 dígitos" do
+    value = "12345678"
     assert {:error, "CE inválida"} == Colombia.validate(:ce, value)
   end
 
