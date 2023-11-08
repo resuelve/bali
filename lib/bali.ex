@@ -61,7 +61,7 @@ defmodule Bali do
     iex> Bali.validate(:co, :ce, "123456")
     {:ok, "123456"}
 
-    iex> Bali.validate(:co, :ce, "1234567")
+    iex> Bali.validate(:co, :ce, "12345678")
     {:error, "CE inválida"}
 
     iex> Bali.validate(:co, :nit, "123456-1")

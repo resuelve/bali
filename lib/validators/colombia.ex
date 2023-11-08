@@ -83,7 +83,7 @@ defmodule Bali.Validators.Colombia do
   # Su estructura es un bloque de 6 dígitos
   @spec ce() :: Regex.t()
   defp ce do
-    ~r/^\d{6}$/
+    ~r/^\d{6,7}$/
   end
 
   # Expresión regular para validar una NIT
