@@ -68,7 +68,7 @@ defmodule BaliTest do
   end
 
   test "Puedo validar que el identificador CE(Cédula de Extranjería) de Colombia no es correcto" do
-    value = "1234567"
+    value = "12345678"
     assert {:error, "CE inválida"} == Bali.validate(:co, :ce, value)
   end
 
