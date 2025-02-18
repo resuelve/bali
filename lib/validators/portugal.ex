@@ -1,14 +1,13 @@
 defmodule Bali.Validators.Portugal do
   @moduledoc """
   Validador para los identificadores personales y fiscales de Portugal.
-  Soporta el NIF (Número de identificación fiscal)
+  Soporta el NIF (Número de identificación fiscal) y
+  Tarjeta de ciudadano (Cartão de cidadão)
   """
 
   @doc """
-  Valida el formato del NIF
-  Este identificador se utiliza tanto para documentos personales 
-  como fiscales, segun lo revisado con operaciones
-    
+  Valida el formato del NIF o de CC
+
   ## Ejemplos:
 
   ```elixir
@@ -19,7 +18,13 @@ defmodule Bali.Validators.Portugal do
     iex> Bali.Validators.Portugal.validate(:nif, "12345678")
     {:error, "NIF inválido"}
 
-  ```    
+    iex> Bali.Validators.Portugal.validate(:cc, "12345678")
+    {:ok, "12345678"}
+
+    iex> Bali.Validators.Portugal.validate(:cc, "1234567")
+    {:error, "CC inválido"}
+
+  ```
   """
   @spec validate(atom, String.t()) :: {:ok, String.t()} | {:error, String.t()}
   def validate(:nif, value) do
@@ -27,6 +32,14 @@ defmodule Bali.Validators.Portugal do
       {:ok, value}
     else
       {:error, "NIF inválido"}
+    end
+  end
+
+  def validate(:cc, value) do
+    if Regex.match?(cc(), value) do
+      {:ok, value}
+    else
+      {:error, "CC inválido"}
     end
   end
 
@@ -40,5 +53,13 @@ defmodule Bali.Validators.Portugal do
   @spec nif() :: Regex.t()
   defp nif do
     ~r/^\d{9}$/
+  end
+
+  # Expresión regular para validar la CC
+  # Su estructura es un bloque de ocho dígitos:
+  # ejemplo '88888888'
+  @spec cc() :: Regex.t()
+  defp cc do
+    ~r/^\d{8}$/
   end
 end
