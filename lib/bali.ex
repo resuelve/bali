@@ -27,7 +27,7 @@ defmodule Bali do
     co: ["cc", "ce", "passport", "password"],
     es: ["dni", "nie"],
     it: ["cie", "cf"],
-    pt: ["nif"],
+    pt: ["cc"],
     br: ["cpf"]
   }
 
