@@ -17,6 +17,21 @@ defmodule BaliTest do
     assert {:error, "NIF inválido"} == Bali.validate(:pt, :nif, value)
   end
 
+  test "Puedo validar el identificador CC(Cartão de cidadão) de Portugal exitosamente" do
+    value = "12345678"
+    assert {:ok, value} == Bali.validate(:pt, :cc, value)
+  end
+
+  test "Puedo validar el identificador CC(Cartão de cidadão) de Portugal exitosamente aunque venga con espacios" do
+    value = "123 456 78"
+    assert {:ok, "12345678"} == Bali.validate(:pt, :cc, value)
+  end
+
+  test "Puedo validar que el identificador CC(Cartão de cidadão) de Portugal no es correcto" do
+    value = "1234567"
+    assert {:error, "CC inválido"} == Bali.validate(:pt, :cc, value)
+  end
+
   test "Puedo validar el identificador DNI(Documento Nacional de Identidad) de España exitosamente" do
     value = "46324571H"
     assert {:ok, value} == Bali.validate(:es, :dni, value)
@@ -265,6 +280,15 @@ defmodule BaliTest do
   test "Puedo validar que el documento personal para Brasil(invalid_cpf) no pertenece al conjunto de documentos válidos" do
     assert {:error, "Documento personal inválido para el país: br"} ==
              Bali.validate_personal_document(:br, :invalid_cpf, "123.456.789-01")
+  end
+
+  test "Puedo validar que el documento personal para Portugal(cc) pertenece al conjunto de documentos válidos y su valor es correcto" do
+    assert {:ok, "12345678"} == Bali.validate_personal_document(:pt, :cc, "12345678")
+  end
+
+  test "Puedo validar que el documento personal para Portugal(invalid_cc) no pertenece al conjunto de documentos válidos" do
+    assert {:error, "Documento personal inválido para el país: pt"} ==
+             Bali.validate_personal_document(:pt, :invalid_cc, "123456789")
   end
 
   test "Puedo validar que el documento personal para Portugal(nif) pertenece al conjunto de documentos válidos y su valor es correcto" do
