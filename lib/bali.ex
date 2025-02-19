@@ -27,7 +27,7 @@ defmodule Bali do
     co: ["cc", "ce", "passport", "password"],
     es: ["dni", "nie"],
     it: ["cie", "cf"],
-    pt: ["cc"],
+    pt: ["nif", "cc"],
     br: ["cpf"]
   }
 
@@ -96,6 +96,12 @@ defmodule Bali do
 
     iex> Bali.validate(:pt, :nif, "12345678")
     {:error, "NIF inválido"}
+
+    iex> Bali.validate(:pt, :cc, "12345678")
+    {:ok, "12345678"}
+
+    iex> Bali.validate(:pt, :cc, "1234567")
+    {:error, "CC inválido"}
 
     # Brasil
     iex> Bali.validate(:br, :cpf, "000.000.000-00")

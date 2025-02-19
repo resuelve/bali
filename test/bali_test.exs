@@ -290,4 +290,13 @@ defmodule BaliTest do
     assert {:error, "Documento personal inválido para el país: pt"} ==
              Bali.validate_personal_document(:pt, :invalid_cc, "123456789")
   end
+
+  test "Puedo validar que el documento personal para Portugal(nif) pertenece al conjunto de documentos válidos y su valor es correcto" do
+    assert {:ok, "123456789"} == Bali.validate_personal_document(:pt, :nif, "123456789")
+  end
+
+  test "Puedo validar que el documento personal para Portugal(invalid_nif) no pertenece al conjunto de documentos válidos" do
+    assert {:error, "Documento personal inválido para el país: pt"} ==
+             Bali.validate_personal_document(:pt, :invalid_nif, "123456789")
+  end
 end
