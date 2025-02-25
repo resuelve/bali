@@ -4,7 +4,7 @@ defmodule Bali.MixProject do
   def project do
     [
       app: :bali,
-      version: "0.4.1",
+      version: "0.5.0",
       description: "Validate personal and tax identifiers for mx, co, es, pt, it, br",
       elixir: "~> 1.9",
       start_permanent: Mix.env() == :prod,
