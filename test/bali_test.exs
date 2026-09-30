@@ -218,6 +218,36 @@ defmodule BaliTest do
              Bali.validate_fiscal_document(:pt, :invalid_nif, "123456789")
   end
 
+  test "Puedo validar el identificador PESEL de Polonia exitosamente" do
+    value = "44051401359"
+    assert {:ok, value} == Bali.validate(:pl, :pesel, value)
+  end
+
+  test "Puedo validar el identificador PESEL de Polonia exitosamente aunque venga con espacios" do
+    value = "440 5140 1359"
+    assert {:ok, "44051401359"} == Bali.validate(:pl, :pesel, value)
+  end
+
+  test "Puedo validar que el identificador PESEL de Polonia no es correcto" do
+    value = "4405140135"
+    assert {:error, "PESEL inválido"} == Bali.validate(:pl, :pesel, value)
+  end
+
+  test "Puedo validar el identificador NIP de Polonia exitosamente" do
+    value = "1234563218"
+    assert {:ok, value} == Bali.validate(:pl, :nip, value)
+  end
+
+  test "Puedo validar el identificador NIP de Polonia exitosamente aunque venga con espacios" do
+    value = "123 456 321 8"
+    assert {:ok, "1234563218"} == Bali.validate(:pl, :nip, value)
+  end
+
+  test "Puedo validar que el identificador NIP de Polonia no es correcto" do
+    value = "123456321"
+    assert {:error, "NIP inválido"} == Bali.validate(:pl, :nip, value)
+  end
+
   test "Puedo validar que el documento personal para México(rfc) pertenece al conjunto de documentos válidos y su valor es correcto" do
     assert {:ok, "ROCE000131HNLDNDA0"} ==
              Bali.validate_personal_document(:mx, :curp, "ROCE000131HNLDNDA0")
@@ -298,5 +328,32 @@ defmodule BaliTest do
   test "Puedo validar que el documento personal para Portugal(invalid_nif) no pertenece al conjunto de documentos válidos" do
     assert {:error, "Documento personal inválido para el país: pt"} ==
              Bali.validate_personal_document(:pt, :invalid_nif, "123456789")
+  end
+
+  test "Puedo validar que el documento fiscal para Polonia(nip) pertenece al conjunto de documentos válidos y su valor es correcto" do
+    assert {:ok, "1234563218"} == Bali.validate_fiscal_document(:pl, :nip, "1234563218")
+  end
+
+  test "Puedo validar que el documento fiscal para Polonia(invalid_nip) no pertenece al conjunto de documentos válidos" do
+    assert {:error, "Documento fiscal inválido para el país: pl"} ==
+             Bali.validate_fiscal_document(:pl, :invalid_nip, "1234563218")
+  end
+
+  test "Puedo validar que el documento personal para Polonia(pesel) pertenece al conjunto de documentos válidos y su valor es correcto" do
+    assert {:ok, "44051401359"} == Bali.validate_personal_document(:pl, :pesel, "44051401359")
+  end
+
+  test "Puedo validar que el documento personal para Polonia(invalid_pesel) no pertenece al conjunto de documentos válidos" do
+    assert {:error, "Documento personal inválido para el país: pl"} ==
+             Bali.validate_personal_document(:pl, :invalid_pesel, "44051401359")
+  end
+
+  test "Puedo validar que el documento personal para Polonia(nip) pertenece al conjunto de documentos válidos y su valor es correcto" do
+    assert {:ok, "1234563218"} == Bali.validate_personal_document(:pl, :nip, "1234563218")
+  end
+
+  test "Puedo validar que el documento personal para Polonia(invalid_nip) no pertenece al conjunto de documentos válidos" do
+    assert {:error, "Documento personal inválido para el país: pl"} ==
+             Bali.validate_personal_document(:pl, :invalid_nip, "1234563218")
   end
 end
