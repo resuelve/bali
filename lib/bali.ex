@@ -5,6 +5,7 @@ defmodule Bali do
   """
 
   alias Bali.Validators.{
+    Poland,
     Portugal,
     Brazil,
     Colombia,
@@ -19,7 +20,8 @@ defmodule Bali do
     es: ["nif"],
     it: ["cf"],
     pt: ["nif"],
-    br: ["cnpj"]
+    br: ["cnpj"],
+    pl: ["nip"]
   }
 
   @personal_documents %{
@@ -28,7 +30,8 @@ defmodule Bali do
     es: ["dni", "nie"],
     it: ["cie", "cf"],
     pt: ["nif", "cc"],
-    br: ["cpf"]
+    br: ["cpf"],
+    pl: ["pesel", "nip"]
   }
 
   @doc """
@@ -116,6 +119,19 @@ defmodule Bali do
     iex> Bali.validate(:br, :cnpj, "00.000.000/0000-000")
     {:error, "CNPJ inválido"}
 
+    # Polonia
+    iex> Bali.validate(:pl, :pesel, "44051401359")
+    {:ok, "44051401359"}
+
+    iex> Bali.validate(:pl, :pesel, "4405140135")
+    {:error, "PESEL inválido"}
+
+    iex> Bali.validate(:pl, :nip, "1234563218")
+    {:ok, "1234563218"}
+
+    iex> Bali.validate(:pl, :nip, "123456321")
+    {:error, "NIP inválido"}
+
   ```
   """
   @spec validate(atom, atom, String.t()) :: {:ok, String.t()} | {:error, String.t()}
@@ -147,6 +163,10 @@ defmodule Bali do
 
   defp do_validate(:br, document_type, value) do
     Brazil.validate(document_type, value)
+  end
+
+  defp do_validate(:pl, document_type, value) do
+    Poland.validate(document_type, value)
   end
 
   defp do_validate(country, _document_type, _value) do
