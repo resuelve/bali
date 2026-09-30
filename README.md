@@ -5,6 +5,7 @@ Library focused on the validation of personal and tax identifiers by country:
 - Spain(DNI, NIE)
 - Portugal(NIF)
 - Italy(NIF)
+- Polish(PESEL, NIF)
 
 ## Installation
 
